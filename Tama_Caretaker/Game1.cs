@@ -9,6 +9,7 @@ namespace Tama_Caretaker
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
 
+        private Texture2D loadingBars;
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);
@@ -27,6 +28,8 @@ namespace Tama_Caretaker
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
+            loadingBars = Content.Load<Texture2D>("loading_bars");
+
             // TODO: use this.Content to load your game content here
         }
 
@@ -43,6 +46,12 @@ namespace Tama_Caretaker
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
+
+            _spriteBatch.Begin();
+
+            _spriteBatch.Draw(loadingBars, new Rectangle(loadingBars.Width/8, 0,loadingBars.Width/8, loadingBars.Height/3 ), Color.White);
+
+            _spriteBatch.End();
 
             // TODO: Add your drawing code here
 
