@@ -64,6 +64,7 @@ namespace Tama_Caretaker
                 Color.White);
 
             playerTamagochi.Draw(_spriteBatch);
+            playerTamagochi.DrawBarOutline(_spriteBatch);
 
             _spriteBatch.End();
 

@@ -27,6 +27,8 @@ namespace Tama_Caretaker
 
         int frame;
         double timeCounter;
+        double timeCounterSleepBar;
+        double timeCounterHungerBar;
         float fps;
         float timePerFrame;
 
@@ -55,6 +57,20 @@ namespace Tama_Caretaker
             }
         }
 
+        public void UpdateBarAnimations(GameTime gametime)
+        {
+            timeCounterSleepBar += gametime.ElapsedGameTime.TotalSeconds;
+            if (timeCounterSleepBar % SLEEPDECREMENT == 0)
+            {
+            }
+        }
+
+        public void DrawBarOutline(SpriteBatch spriteBatch)
+        {
+            spriteBatch.Draw(loadingBars, new Rectangle(0, 0, BARFRAMEWIDTH, BARFRAMEHEIGHT),
+            new Rectangle(BARFRAMEWIDTH - BARFRAMEWIDTH, 0, BARFRAMEWIDTH, BARFRAMEHEIGHT),
+            Color.White, 0, new Vector2(0, 0), SpriteEffects.None, 1.0f);
+        }
         public void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(loadingBars,new Rectangle(0,0, BARFRAMEWIDTH, BARFRAMEHEIGHT),
