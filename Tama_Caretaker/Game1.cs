@@ -11,6 +11,7 @@ namespace Tama_Caretaker
 
         private Texture2D loadingBars;
         private Texture2D tamagotchi;
+        private Tamagotchi playerTamagochi;
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);
@@ -31,6 +32,7 @@ namespace Tama_Caretaker
 
             loadingBars = Content.Load<Texture2D>("loading_bars");
             tamagotchi = Content.Load<Texture2D>("tamagotchi");
+            playerTamagochi = new Tamagotchi(tamagotchi, loadingBars);
 
             // TODO: use this.Content to load your game content here
         }
@@ -39,6 +41,8 @@ namespace Tama_Caretaker
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
+
+            playerTamagochi.UpdateAnimations(gameTime);
 
             // TODO: Add your update logic here
 
@@ -58,6 +62,8 @@ namespace Tama_Caretaker
                 tamagotchi.Width, 
                 tamagotchi.Height), 
                 Color.White);
+
+            playerTamagochi.Draw(_spriteBatch);
 
             _spriteBatch.End();
 
