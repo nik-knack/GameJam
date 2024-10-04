@@ -73,10 +73,12 @@ namespace Tama_Caretaker
         }
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(loadingBars,new Rectangle(0,0, BARFRAMEWIDTH, BARFRAMEHEIGHT),
+            spriteBatch.Draw(loadingBars,new Vector2(500,100),
                 new Rectangle(frame * BARFRAMEWIDTH - BARFRAMEWIDTH, 0, BARFRAMEWIDTH, BARFRAMEHEIGHT),
-            Color.White, 0, new Vector2(0, 0), SpriteEffects.None, 1.0f);
+            Color.White, 0, new Vector2(0, 0), new Vector2(5.0f, 5.0f), SpriteEffects.None, 1.0f);
         }
+
+
 
     }
 }
