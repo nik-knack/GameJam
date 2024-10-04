@@ -10,6 +10,7 @@ namespace Tama_Caretaker
         private SpriteBatch _spriteBatch;
 
         private Texture2D loadingBars;
+        private Texture2D tamagotchi;
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);
@@ -29,6 +30,7 @@ namespace Tama_Caretaker
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
             loadingBars = Content.Load<Texture2D>("loading_bars");
+            tamagotchi = Content.Load<Texture2D>("tamagotchi");
 
             // TODO: use this.Content to load your game content here
         }
@@ -50,6 +52,12 @@ namespace Tama_Caretaker
             _spriteBatch.Begin();
 
             _spriteBatch.Draw(loadingBars, new Rectangle(loadingBars.Width/8, 0,loadingBars.Width/8, loadingBars.Height/3 ), Color.White);
+            _spriteBatch.Draw(tamagotchi, new Rectangle(
+                (GraphicsDevice.Viewport.Bounds.Width - tamagotchi.Width)/2, 
+                (GraphicsDevice.Viewport.Bounds.Height - tamagotchi.Height)/2, 
+                tamagotchi.Width, 
+                tamagotchi.Height), 
+                Color.White);
 
             _spriteBatch.End();
 
