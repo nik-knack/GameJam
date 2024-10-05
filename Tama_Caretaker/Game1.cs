@@ -41,6 +41,9 @@ namespace Tama_Caretaker
         private Texture2D potatoTex;
         private Texture2D carrotTex;
         private Texture2D cornTex;
+        private Texture2D mainBackground;
+        private Texture2D tamagotchiBackground;
+        private Texture2D gameOverBackground;
 
         private Tamagotchi playerTamagochi;
         private SoundEffect cancelFX;
@@ -81,7 +84,9 @@ namespace Tama_Caretaker
             potatoTex = Content.Load<Texture2D>("potato");
             carrotTex = Content.Load<Texture2D>("carrot");
             cornTex = Content.Load<Texture2D>("corn");
-
+            mainBackground = Content.Load<Texture2D>("main_background");
+            tamagotchiBackground = Content.Load<Texture2D>("tamagotchi_background");
+            gameOverBackground = Content.Load<Texture2D>("game_over_background");
 
 
             monogram = Content.Load<SpriteFont>("monogram");
@@ -257,23 +262,31 @@ namespace Tama_Caretaker
             switch (gameState)
             {
                 case GameState.TitleScreen:
+                        _spriteBatch.Draw(mainBackground, new Rectangle(0, 0,
+                            mainBackground.Width, mainBackground.Height), Color.White);
                     _spriteBatch.DrawString(monogram, "Welcome to Tama-Caretaker!",
                         new Vector2((screenWidth/2) - 150, (screenHeight/2) -100), 
                         Color.White);
                     break;
 
                 case GameState.Instructions:
+                    _spriteBatch.Draw(mainBackground, new Rectangle(0, 0,
+                        mainBackground.Width, mainBackground.Height), Color.White);
                     _spriteBatch.DrawString(monogram, "How To Play:", new Vector2(screenWidth / 2, screenHeight / 2),
                         Color.White, 0f, new Vector2(0, 0), new Vector2(4.0f, 4.0f), SpriteEffects.None, 0f);
                     break;
 
                 case GameState.Credits:
+                    _spriteBatch.Draw(mainBackground, new Rectangle(0, 0,
+                        mainBackground.Width, mainBackground.Height), Color.White);
                     _spriteBatch.DrawString(monogram, "Credits",
                         new Vector2((screenWidth / 2) - 150, (screenHeight / 2) - 100),
                         Color.White);
                     break;
 
                 case GameState.TamagachiMenu:
+                    _spriteBatch.Draw(tamagotchiBackground, new Rectangle(0, 0,
+                        tamagotchiBackground.Width, tamagotchiBackground.Height), Color.White);
                     
                     _spriteBatch.Draw(tamagotchi, new Rectangle(
                     (screenWidth - tamagotchi.Width) / 2,
@@ -287,16 +300,24 @@ namespace Tama_Caretaker
                     break;
 
                 case GameState.SleepMinigame:
+                    _spriteBatch.Draw(tamagotchiBackground, new Rectangle(0, 0,
+                        tamagotchiBackground.Width, tamagotchiBackground.Height), Color.White);
                     break;
 
                 case GameState.FeedMinigame:
+                    _spriteBatch.Draw(tamagotchiBackground, new Rectangle(0, 0,
+                        tamagotchiBackground.Width, tamagotchiBackground.Height), Color.White);
                     playerTamagochi.FeedDraw(_spriteBatch);
                     break;
 
                 case GameState.PlayMinigame:
+                    _spriteBatch.Draw(tamagotchiBackground, new Rectangle(0, 0,
+                        tamagotchiBackground.Width, tamagotchiBackground.Height), Color.White);
                     break;
 
                 case GameState.GameOver:
+                    _spriteBatch.Draw(gameOverBackground, new Rectangle(0, 0,
+                        gameOverBackground.Width, gameOverBackground.Height), Color.White);
                     _spriteBatch.Draw(gameOver, new Rectangle(0,0,
                         gameOver.Width, gameOver.Height), Color.White);
 
