@@ -25,7 +25,8 @@ namespace Tama_Caretaker
 
         
 
-        int frame;
+        int hungerFrame;
+        int sleepFrame;
         double timeCounter;
         double timeCounterSleepBar;
         double timeCounterHungerBar;
@@ -38,43 +39,46 @@ namespace Tama_Caretaker
             hungerBarFrame = 7;
             this.tamagotchiTex = tamagotchiTex;
             this.loadingBars = loadingBars;
-            frame = 0;
-            fps = 6.0f;
+            sleepFrame = 1;
+            hungerFrame = 1;
+            fps = 0.14f;
             timePerFrame = 1.0f / fps;
         }
-
+        
         public void UpdateAnimations(GameTime gameTime)
         {
             timeCounter += gameTime.ElapsedGameTime.TotalSeconds;
             if (timeCounter >= timePerFrame)
             {
-                frame += 1;
+                sleepFrame += 1;
 
-                if (frame > BARFRAMECOUNTER)
-                    frame = 1;
+                if (sleepFrame > BARFRAMECOUNTER)
+                    sleepFrame = 2;
 
                 timeCounter -= timePerFrame;
             }
         }
+        
 
-        public void UpdateBarAnimations(GameTime gametime)
-        {
-            timeCounterSleepBar += gametime.ElapsedGameTime.TotalSeconds;
-            if (timeCounterSleepBar % SLEEPDECREMENT == 0)
-            {
-            }
-        }
 
         public void DrawBarOutline(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(loadingBars, new Rectangle(0, 0, BARFRAMEWIDTH, BARFRAMEHEIGHT),
+            spriteBatch.Draw(loadingBars, new Vector2(500, 100),
             new Rectangle(BARFRAMEWIDTH - BARFRAMEWIDTH, 0, BARFRAMEWIDTH, BARFRAMEHEIGHT),
-            Color.White, 0, new Vector2(0, 0), SpriteEffects.None, 1.0f);
+            Color.White, 0, new Vector2(0, 0), new Vector2(5.0f, 5.0f), SpriteEffects.None, 1.0f);
+
+            spriteBatch.Draw(loadingBars, new Vector2(500, 170),
+            new Rectangle(BARFRAMEWIDTH - BARFRAMEWIDTH, 0, BARFRAMEWIDTH, BARFRAMEHEIGHT),
+            Color.White, 0, new Vector2(0, 0), new Vector2(5.0f, 5.0f), SpriteEffects.None, 1.0f);
         }
-        public void Draw(SpriteBatch spriteBatch)
+        public void DrawBars(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(loadingBars,new Vector2(500,100),
-                new Rectangle(frame * BARFRAMEWIDTH - BARFRAMEWIDTH, 0, BARFRAMEWIDTH, BARFRAMEHEIGHT),
+                new Rectangle(sleepFrame * BARFRAMEWIDTH - BARFRAMEWIDTH, BARFRAMEHEIGHT*0, BARFRAMEWIDTH, BARFRAMEHEIGHT),
+            Color.White, 0, new Vector2(0, 0), new Vector2(5.0f, 5.0f), SpriteEffects.None, 1.0f);
+
+            spriteBatch.Draw(loadingBars, new Vector2(500, 170),
+            new Rectangle(hungerFrame * BARFRAMEWIDTH - BARFRAMEWIDTH, BARFRAMEHEIGHT*1, BARFRAMEWIDTH, BARFRAMEHEIGHT),
             Color.White, 0, new Vector2(0, 0), new Vector2(5.0f, 5.0f), SpriteEffects.None, 1.0f);
         }
 

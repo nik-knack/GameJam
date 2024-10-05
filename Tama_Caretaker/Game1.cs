@@ -4,6 +4,18 @@ using Microsoft.Xna.Framework.Input;
 
 namespace Tama_Caretaker
 {
+    enum GameState
+    {
+        TitleScreen,
+        Instructions,
+        Credits,
+        TamagachiMenu,
+        SleepMinigame,
+        FeedMinigame,
+        PlayMinigame,
+
+
+    }
     public class Game1 : Game
     {
         private GraphicsDeviceManager _graphics;
@@ -67,7 +79,7 @@ namespace Tama_Caretaker
                 tamagotchi.Height), 
                 Color.White);
 
-            playerTamagochi.Draw(_spriteBatch);
+            playerTamagochi.DrawBars(_spriteBatch);
             playerTamagochi.DrawBarOutline(_spriteBatch);
 
             _spriteBatch.End();
