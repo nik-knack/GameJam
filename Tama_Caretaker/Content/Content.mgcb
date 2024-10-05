@@ -49,6 +49,12 @@
 /processorParam:Quality=Best
 /build:main_select.wav
 
+#begin minigame_select.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:minigame_select.wav
+
 #begin monogram.spritefont
 /importer:FontDescriptionImporter
 /processor:FontDescriptionProcessor
@@ -58,6 +64,12 @@
 
 #begin monogram.ttf
 /copy:monogram.ttf
+
+#begin panorama.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:panorama.mp3
 
 #begin tamagotchi.png
 /importer:TextureImporter
