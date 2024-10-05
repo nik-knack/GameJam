@@ -26,8 +26,8 @@ namespace Tama_Caretaker
         private SpriteBatch _spriteBatch;
         SpriteFont monogram;
         private GameState gameState;
-        private int screenWidth;
-        private int screenHeight;
+        public int screenWidth;
+        public int screenHeight;
 
         private KeyboardState kbState;
         private KeyboardState prevkbState;
@@ -41,6 +41,8 @@ namespace Tama_Caretaker
         private Texture2D potatoTex;
         private Texture2D carrotTex;
         private Texture2D cornTex;
+        private Texture2D ghostTex;
+
         private Texture2D mainBackground;
         private Texture2D tamagotchiBackground;
         private Texture2D gameOverBackground;
@@ -53,6 +55,8 @@ namespace Tama_Caretaker
         private SoundEffect feedFX;
         private SoundEffect winFX;
         private Song menuSong;
+
+        private Nightmare nightmare;
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);
@@ -76,7 +80,6 @@ namespace Tama_Caretaker
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
-
             screenWidth = GraphicsDevice.Viewport.Bounds.Width;
             screenHeight = GraphicsDevice.Viewport.Bounds.Height;
 
@@ -86,6 +89,8 @@ namespace Tama_Caretaker
             potatoTex = Content.Load<Texture2D>("potato");
             carrotTex = Content.Load<Texture2D>("carrot");
             cornTex = Content.Load<Texture2D>("corn");
+            ghostTex = Content.Load<Texture2D>("ghostSprite");
+
             mainBackground = Content.Load<Texture2D>("main_background");
             tamagotchiBackground = Content.Load<Texture2D>("tamagotchi_background");
             gameOverBackground = Content.Load<Texture2D>("game_over_background");
@@ -104,7 +109,7 @@ namespace Tama_Caretaker
             playerTamagochi = new Tamagotchi(loadingBars, cornTex, potatoTex, carrotTex,
                 feedFX, winFX);
             menuSong = Content.Load<Song>("panorama");
-
+            nightmare = new Nightmare(ghostTex, new Rectangle(0, 0, ghostTex.Width, ghostTex.Height));
             gameState = GameState.TitleScreen;
 
             SoundEffect.MasterVolume = 0.5f;
@@ -208,11 +213,14 @@ namespace Tama_Caretaker
                     break;
 
                 case GameState.SleepMinigame:
+
+                    nightmare.Update(gameTime);
                     if (SingleKeyPress(Keys.Q, kbState, prevkbState))
                     {
                         cancelFX.Play();
                         gameState = GameState.TamagachiMenu;
                     }
+                    
                     break;
 
                 case GameState.FeedMinigame:
@@ -320,6 +328,8 @@ namespace Tama_Caretaker
                 case GameState.SleepMinigame:
                     _spriteBatch.Draw(tamagotchiBackground, new Rectangle(0, 0,
                         tamagotchiBackground.Width, tamagotchiBackground.Height), Color.White);
+
+                    nightmare.Draw(_spriteBatch);
                     break;
 
                 case GameState.FeedMinigame:
