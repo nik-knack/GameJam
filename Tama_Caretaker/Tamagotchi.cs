@@ -27,15 +27,35 @@ namespace Tama_Caretaker
 
         public bool isAlive = true;
         private bool isPopulated = false;
+        public bool completed = false;
 
         private List<Food> foodList;
         private Random random = new Random();
 
         private SoundEffect feedFX;
+        private SoundEffect winFX;
 
         int feedFrame;
         int sleepFrame;
         int playFrame;
+
+        public int FeedFrame
+        {
+            get { return feedFrame; }
+            set { feedFrame = value; }
+        }
+
+        public int SleepFrame
+        {
+            get { return sleepFrame; }
+            set { sleepFrame = value; }
+        }
+
+        public int PlayFrame
+        {
+            get { return playFrame; }
+            set { playFrame = value; }
+        }
 
         double timeCounterSleepBar;
         double timeCounterHungerBar;
@@ -51,7 +71,7 @@ namespace Tama_Caretaker
 
         public Tamagotchi(Texture2D loadingBars,
             Texture2D cornTex, Texture2D potatoTex, Texture2D carrotTex,
-            SoundEffect feedFX)
+            SoundEffect feedFX, SoundEffect winFX)
         {
             sleepBarFrame = 7;
             hungerBarFrame = 7;
@@ -64,6 +84,7 @@ namespace Tama_Caretaker
             playFps = 0.18f;
 
             this.feedFX = feedFX;
+            this.winFX = winFX;
             this.potatoTex = potatoTex;
             this.carrotTex = carrotTex;
             this.cornTex = cornTex;
@@ -149,6 +170,12 @@ namespace Tama_Caretaker
                     foodList.RemoveAt(i);
                 }
             }
+
+            if (foodList.Count == 0)
+            {
+                FeedFrame = 1;
+                completed = true;
+            }
         }
 
         public void FeedDraw(SpriteBatch sb)
@@ -157,6 +184,11 @@ namespace Tama_Caretaker
             {
                 foodList[i].Draw(sb);
             }
+        }
+
+        public void SleepUpdate (GameTime gameTime)
+        {
+
         }
 
 
@@ -195,6 +227,13 @@ namespace Tama_Caretaker
             sleepFrame = 1;
             playFrame = 1;
             feedFrame = 1;
+        }
+
+        public void FeedReset()
+        {
+            completed = false;
+            isPopulated = false;
+            foodList.Clear();
         }
 
         private bool SingleLeftMousePress(MouseState mouseState, MouseState prevMouseState)
