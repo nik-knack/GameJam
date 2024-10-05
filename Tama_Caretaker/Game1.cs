@@ -70,7 +70,7 @@ namespace Tama_Caretaker
 
             gameState = GameState.TitleScreen;
             loadingBars = Content.Load<Texture2D>("loading_bars");
-            tamagotchi = Content.Load<Texture2D>("tamagotchi");
+            //tamagotchi = Content.Load<Texture2D>("tamagotchi");
             playerTamagochi = new Tamagotchi(loadingBars);
             monogram = Content.Load<SpriteFont>("monogram");
             gameOver = Content.Load<Texture2D>("game_over");
@@ -250,12 +250,12 @@ namespace Tama_Caretaker
 
                 case GameState.TamagachiMenu:
                     
-                    _spriteBatch.Draw(tamagotchi, new Rectangle(
-                    (screenWidth - tamagotchi.Width) / 2,
-                    (screenHeight - tamagotchi.Height) / 2,
-                    tamagotchi.Width*10,
-                    tamagotchi.Height*10),
-                    Color.White);
+                    //_spriteBatch.Draw(tamagotchi, new Rectangle(
+                    //(screenWidth - tamagotchi.Width) / 2,
+                    //(screenHeight - tamagotchi.Height) / 2,
+                    //tamagotchi.Width*10,
+                    //tamagotchi.Height*10),
+                    //Color.White);
                     
                     playerTamagochi.DrawBars(_spriteBatch);
                     playerTamagochi.DrawBarOutline(_spriteBatch);
