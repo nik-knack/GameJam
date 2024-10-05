@@ -33,7 +33,6 @@ namespace Tama_Caretaker
         private Random random = new Random();
 
         private SoundEffect feedFX;
-        private SoundEffect winFX;
 
         int feedFrame;
         int sleepFrame;
