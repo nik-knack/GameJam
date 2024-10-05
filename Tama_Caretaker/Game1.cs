@@ -39,6 +39,8 @@ namespace Tama_Caretaker
         private Tamagotchi playerTamagochi;
         private SoundEffect cancelFX;
         private SoundEffect menuFX;
+        private SoundEffect minigameFX;
+        private Song menuSong;
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);
@@ -68,15 +70,19 @@ namespace Tama_Caretaker
 
             gameState = GameState.TitleScreen;
             loadingBars = Content.Load<Texture2D>("loading_bars");
-            tamagotchi = Content.Load<Texture2D>("tamagotchi");
-            playerTamagochi = new Tamagotchi(tamagotchi, loadingBars);
+            //tamagotchi = Content.Load<Texture2D>("tamagotchi");
+            playerTamagochi = new Tamagotchi(loadingBars);
             monogram = Content.Load<SpriteFont>("monogram");
             gameOver = Content.Load<Texture2D>("game_over");
             cancelFX = Content.Load<SoundEffect>("cancel");
             menuFX = Content.Load<SoundEffect>("main_select");
+            minigameFX = Content.Load<SoundEffect>("minigame_select");
 
-            
+            menuSong = Content.Load<Song>("panorama");
 
+            MediaPlayer.Volume -= 0.6f;
+            MediaPlayer.Play(menuSong);
+            MediaPlayer.IsRepeating = true;
             // TODO: use this.Content to load your game content here
         }
 
@@ -86,12 +92,16 @@ namespace Tama_Caretaker
                 Exit();
             kbState = Keyboard.GetState();
 
+
+
             switch (gameState)
             {
                 case GameState.TitleScreen:
+                   
                     if(SingleKeyPress(Keys.Space, kbState, prevkbState))
                     {
                         menuFX.Play();
+                        playerTamagochi.Reset();
                         gameState = GameState.TamagachiMenu;
                     }
 
@@ -106,6 +116,7 @@ namespace Tama_Caretaker
                         menuFX.Play();
                         gameState = GameState.Instructions;
                     }
+
                     break;
 
                 case GameState.Instructions:
@@ -118,6 +129,7 @@ namespace Tama_Caretaker
                     if (SingleKeyPress(Keys.Space, kbState, prevkbState))
                     {
                         menuFX.Play();
+                        playerTamagochi.Reset();
                         gameState = GameState.TamagachiMenu;
                     }
                     break;
@@ -131,22 +143,38 @@ namespace Tama_Caretaker
                     break;
 
                 case GameState.TamagachiMenu:
-                    if (SingleKeyPress(Keys.S, kbState, prevkbState))
+                    if (playerTamagochi.isAlive)
                     {
-                        gameState = GameState.SleepMinigame;
-                    }
+                        if (SingleKeyPress(Keys.S, kbState, prevkbState))
+                        {
+                            minigameFX.Play();
+                            gameState = GameState.SleepMinigame;
+                        }
 
-                    if (SingleKeyPress(Keys.P, kbState, prevkbState))
+                        if (SingleKeyPress(Keys.P, kbState, prevkbState))
+                        {
+                            minigameFX.Play();
+                            gameState = GameState.PlayMinigame;
+                        }
+
+                        if (SingleKeyPress(Keys.F, kbState, prevkbState))
+                        {
+                            minigameFX.Play();
+                            gameState = GameState.FeedMinigame;
+                        }
+
+                        if (SingleKeyPress(Keys.G, kbState, prevkbState))
+                        {
+                            gameState = GameState.GameOver;
+                        }
+
+                        playerTamagochi.UpdateAnimations(gameTime);
+                    }
+                    else
                     {
-                        gameState = GameState.PlayMinigame;
+                        gameState = GameState.GameOver;
+                        break;
                     }
-
-                    if (SingleKeyPress(Keys.F, kbState, prevkbState))
-                    {
-                        gameState = GameState.FeedMinigame;
-                    }
-
-                    playerTamagochi.UpdateAnimations(gameTime);
 
                     break;
 
@@ -178,6 +206,7 @@ namespace Tama_Caretaker
                 case GameState.GameOver:
                     if (SingleKeyPress(Keys.Space, kbState, prevkbState))
                     {
+                        playerTamagochi.Reset();
                         gameState = GameState.TamagachiMenu;
                     }
                     if (SingleKeyPress(Keys.Q, kbState, prevkbState))
@@ -220,13 +249,14 @@ namespace Tama_Caretaker
                     break;
 
                 case GameState.TamagachiMenu:
+                    /*
                     _spriteBatch.Draw(tamagotchi, new Rectangle(
                     (screenWidth - tamagotchi.Width) / 2,
                     (screenHeight - tamagotchi.Height) / 2,
                     tamagotchi.Width*10,
                     tamagotchi.Height*10),
                     Color.White);
-
+                    */
                     playerTamagochi.DrawBars(_spriteBatch);
                     playerTamagochi.DrawBarOutline(_spriteBatch);
                     break;
@@ -241,6 +271,8 @@ namespace Tama_Caretaker
                     break;
 
                 case GameState.GameOver:
+                    _spriteBatch.Draw(gameOver, new Rectangle(0,0,
+                        gameOver.Width, gameOver.Height), Color.White);
 
                     break;
 
@@ -260,6 +292,11 @@ namespace Tama_Caretaker
         private bool SingleKeyPress(Keys key, KeyboardState kbState, KeyboardState prevKbState)
         {
             return kbState.IsKeyDown(key) && prevkbState.IsKeyUp(key);
+        }
+
+        private bool SingleLeftMousePress(MouseState mouseState, MouseState prevMouseState)
+        {
+            return (mouseState.LeftButton == ButtonState.Pressed) && (prevMouseState.LeftButton == ButtonState.Released);
         }
     }
 }

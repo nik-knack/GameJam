@@ -10,11 +10,8 @@ namespace Tama_Caretaker
 {
     internal class Tamagotchi
     {
-        private Texture2D tamagotchiTex;
         private Texture2D loadingBars;
 
-        private const int SLEEPDECREMENT = 7;
-        private const int HUNGERDECREMENT = 5;
         private const int BARFRAMECOUNTER = 7;
 
         private const int BARFRAMEHEIGHT = 16;
@@ -23,6 +20,10 @@ namespace Tama_Caretaker
         public int sleepBarFrame;
         public int hungerBarFrame;
 
+        public bool isAlive = true;
+
+        private List<Food> foodList;
+        private Random random;
         
 
         int feedFrame;
@@ -41,11 +42,10 @@ namespace Tama_Caretaker
         float timePerFeedFrame;
         float timePerPlayFrame;
 
-        public Tamagotchi(Texture2D tamagotchiTex, Texture2D loadingBars)
+        public Tamagotchi(Texture2D loadingBars)
         {
             sleepBarFrame = 7;
             hungerBarFrame = 7;
-            this.tamagotchiTex = tamagotchiTex;
             this.loadingBars = loadingBars;
             sleepFrame = 1;
             feedFrame = 1;
@@ -91,8 +91,37 @@ namespace Tama_Caretaker
 
                 timeCounterPlayBar -= timePerPlayFrame;
             }
+
+           if (playFrame >= 7 || feedFrame >= 7 || playFrame >= 7)
+            {
+                isAlive = false;
+            }
         }
         
+        public void FeedUpdate(GameTime gameTime)
+        {
+            foodList = new List<Food>(10);
+
+            for (int i = 0; i < foodList.Count; i++)
+            {
+                int randNum = random.Next(0, 10);
+
+                int randPos = 
+
+                if (randNum <= 2)
+                {
+                    foodList[i] = new Food()
+                }
+                else if (randNum < 6 && randNum > 2)
+                {
+
+                }
+                else
+                {
+
+                }
+            }
+        }
 
 
         public void DrawBarOutline(SpriteBatch spriteBatch)
@@ -122,6 +151,14 @@ namespace Tama_Caretaker
             spriteBatch.Draw(loadingBars, new Vector2(0, 140),
             new Rectangle(playFrame * BARFRAMEWIDTH, BARFRAMEHEIGHT * 2, BARFRAMEWIDTH, BARFRAMEHEIGHT),
             Color.White, 0, new Vector2(0, 0), new Vector2(5.0f, 5.0f), SpriteEffects.None, 1.0f);
+        }
+        
+        public void Reset()
+        {
+            isAlive = true;
+            sleepFrame = 1;
+            playFrame = 1;
+            feedFrame = 1;
         }
 
 
