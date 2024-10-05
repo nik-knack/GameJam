@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +12,9 @@ namespace Tama_Caretaker
     internal class Tamagotchi
     {
         private Texture2D loadingBars;
+        private Texture2D potatoTex;
+        private Texture2D carrotTex;
+        private Texture2D cornTex;
 
         private const int BARFRAMECOUNTER = 7;
 
@@ -21,9 +25,13 @@ namespace Tama_Caretaker
         public int hungerBarFrame;
 
         public bool isAlive = true;
+        private bool isPopulated = false;
 
         private List<Food> foodList;
-        private Random random;
+        private Random random = new Random();
+
+        private MouseState mState;
+        private MouseState prevMState;
         
 
         int feedFrame;
@@ -42,7 +50,9 @@ namespace Tama_Caretaker
         float timePerFeedFrame;
         float timePerPlayFrame;
 
-        public Tamagotchi(Texture2D loadingBars)
+        public Tamagotchi(Texture2D loadingBars,
+            Texture2D cornTex, Texture2D potatoTex, Texture2D carrotTex,
+            MouseState mState, MouseState prevMState)
         {
             sleepBarFrame = 7;
             hungerBarFrame = 7;
@@ -53,6 +63,16 @@ namespace Tama_Caretaker
             sleepFps = 0.12f;
             feedFps = 0.10f;
             playFps = 0.18f;
+
+            this.potatoTex = potatoTex;
+            this.carrotTex = carrotTex;
+            this.cornTex = cornTex;
+
+            this.mState = mState;
+            this.prevMState = prevMState;
+
+            foodList = new List<Food>();
+
             this.timePerSleepFrame = 1.0f / sleepFps;
             this.timePerFeedFrame = 1.0f / feedFps;
             this.timePerPlayFrame = 1.0f / playFps;
@@ -93,31 +113,54 @@ namespace Tama_Caretaker
             }
 
            if (playFrame >= 7 || feedFrame >= 7 || playFrame >= 7)
-            {
+           {
                 isAlive = false;
-            }
+           }
         }
         
         public void FeedUpdate(GameTime gameTime)
         {
-            foodList = new List<Food>(10);
-
-            for (int i = 0; i < foodList.Count; i++)
+            if (!isPopulated)
             {
-                int randNum = random.Next(0, 10);
-
-                if (randNum <= 2)
+                for (int i = 0; i < 10; i++)
                 {
+                    int randNum = random.Next(0, 10);
+                    int positionY = random.Next(50, 620);
+                    int positionX = random.Next(50, 1180);
 
+                    if (randNum <= 2)
+                    {
+                        foodList.Add(new Food(cornTex, new Rectangle(positionX, positionY, cornTex.Width, cornTex.Height)));
+                    }
+                    else if (randNum < 6 && randNum > 2)
+                    {
+                        foodList.Add(new Food(potatoTex, new Rectangle(positionX, positionY, potatoTex.Width, potatoTex.Height)));
+                    }
+                    else
+                    {
+                        foodList.Add(new Food(carrotTex, new Rectangle(positionX, positionY, carrotTex.Width, carrotTex.Height)));
+                    }
                 }
-                else if (randNum < 6 && randNum > 2)
+                isPopulated = true;
+            }
+
+            for (int i = 0; i < foodList.Count;i++)
+            {
+                Food food = foodList[i];
+
+                if (food.CheckCollision(mState))
                 {
-
+                    foodList.RemoveAt(i);
                 }
-                else
-                {
+            }
+            
+        }
 
-                }
+        public void FeedDraw(SpriteBatch sb)
+        {
+            for(int i = 0;i < foodList.Count; i++)
+            {
+                foodList[i].Draw(sb);
             }
         }
 
@@ -157,6 +200,11 @@ namespace Tama_Caretaker
             sleepFrame = 1;
             playFrame = 1;
             feedFrame = 1;
+        }
+
+        private bool SingleLeftMousePress(MouseState mouseState, MouseState prevMouseState)
+        {
+            return (mouseState.LeftButton == ButtonState.Pressed) && (prevMouseState.LeftButton == ButtonState.Released);
         }
 
 

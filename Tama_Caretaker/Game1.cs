@@ -31,11 +31,17 @@ namespace Tama_Caretaker
 
         private KeyboardState kbState;
         private KeyboardState prevkbState;
+        private MouseState mState;
+        private MouseState prevMState;
         
 
         private Texture2D loadingBars;
         private Texture2D tamagotchi;
         private Texture2D gameOver;
+        private Texture2D potatoTex;
+        private Texture2D carrotTex;
+        private Texture2D cornTex;
+
         private Tamagotchi playerTamagochi;
         private SoundEffect cancelFX;
         private SoundEffect menuFX;
@@ -68,17 +74,25 @@ namespace Tama_Caretaker
             screenWidth = GraphicsDevice.Viewport.Bounds.Width;
             screenHeight = GraphicsDevice.Viewport.Bounds.Height;
 
-            gameState = GameState.TitleScreen;
             loadingBars = Content.Load<Texture2D>("loading_bars");
             tamagotchi = Content.Load<Texture2D>("tamagotchi");
-            playerTamagochi = new Tamagotchi(loadingBars);
-            monogram = Content.Load<SpriteFont>("monogram");
             gameOver = Content.Load<Texture2D>("game_over");
+            potatoTex = Content.Load<Texture2D>("potato");
+            carrotTex = Content.Load<Texture2D>("carrot");
+            cornTex = Content.Load<Texture2D>("corn");
+
+
+
+            monogram = Content.Load<SpriteFont>("monogram");
+
             cancelFX = Content.Load<SoundEffect>("cancel");
             menuFX = Content.Load<SoundEffect>("main_select");
             minigameFX = Content.Load<SoundEffect>("minigame_select");
 
+            playerTamagochi = new Tamagotchi(loadingBars, cornTex, potatoTex, carrotTex, mState, prevMState);
             menuSong = Content.Load<Song>("panorama");
+
+            gameState = GameState.TitleScreen;
 
             MediaPlayer.Volume -= 0.6f;
             MediaPlayer.Play(menuSong);
@@ -93,6 +107,7 @@ namespace Tama_Caretaker
             kbState = Keyboard.GetState();
 
 
+            mState = Mouse.GetState();
 
             switch (gameState)
             {
@@ -187,6 +202,8 @@ namespace Tama_Caretaker
                     break;
 
                 case GameState.FeedMinigame:
+                    playerTamagochi.FeedUpdate(gameTime);
+
                     if (SingleKeyPress(Keys.Q, kbState, prevkbState))
                     {
                         cancelFX.Play();
@@ -220,6 +237,7 @@ namespace Tama_Caretaker
 
 
             prevkbState = kbState;
+            prevMState = mState;
 
             // TODO: Add your update logic here
 
@@ -265,6 +283,7 @@ namespace Tama_Caretaker
                     break;
 
                 case GameState.FeedMinigame:
+                    playerTamagochi.FeedDraw(_spriteBatch);
                     break;
 
                 case GameState.PlayMinigame:
@@ -294,9 +313,6 @@ namespace Tama_Caretaker
             return kbState.IsKeyDown(key) && prevkbState.IsKeyUp(key);
         }
 
-        private bool SingleLeftMousePress(MouseState mouseState, MouseState prevMouseState)
-        {
-            return (mouseState.LeftButton == ButtonState.Pressed) && (prevMouseState.LeftButton == ButtonState.Released);
-        }
+
     }
 }

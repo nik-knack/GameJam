@@ -12,19 +12,24 @@ namespace Tama_Caretaker
     internal class Food
     {
         private Texture2D texture;
-        private Rectangle position;
+        public Rectangle position;
+
         public Food(Texture2D tex, Rectangle position)
         {
             texture = tex;
             this.position = position;
         }
 
-        public void Update(GameTime gameTime)
+        public void Update()
         {
-            
+
         }
 
-        public bool CheckCollision(Rectangle position, MouseState mouse)
+        public void Draw(SpriteBatch sb)
+        { 
+            sb.Draw(texture, position, Color.White);
+        }
+        public bool CheckCollision(MouseState mouse)
         {
             return position.Contains(mouse.Position);
         }
