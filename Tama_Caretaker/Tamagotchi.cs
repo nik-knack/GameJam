@@ -106,11 +106,9 @@ namespace Tama_Caretaker
             {
                 int randNum = random.Next(0, 10);
 
-                int randPos = 
-
                 if (randNum <= 2)
                 {
-                    foodList[i] = new Food()
+
                 }
                 else if (randNum < 6 && randNum > 2)
                 {
