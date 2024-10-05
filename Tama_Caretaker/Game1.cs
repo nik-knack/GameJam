@@ -264,6 +264,9 @@ namespace Tama_Caretaker
                     break;
 
                 case GameState.Credits:
+                    _spriteBatch.DrawString(monogram, "Credits",
+                        new Vector2((screenWidth / 2) - 150, (screenHeight / 2) - 100),
+                        Color.White);
                     break;
 
                 case GameState.TamagachiMenu:
