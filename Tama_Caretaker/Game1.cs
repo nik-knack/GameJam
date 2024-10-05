@@ -33,6 +33,7 @@ namespace Tama_Caretaker
 
         private Texture2D loadingBars;
         private Texture2D tamagotchi;
+        private Texture2D gameOver;
         private Tamagotchi playerTamagochi;
         public Game1()
         {
@@ -66,6 +67,8 @@ namespace Tama_Caretaker
             tamagotchi = Content.Load<Texture2D>("tamagotchi");
             playerTamagochi = new Tamagotchi(tamagotchi, loadingBars);
             monogram = Content.Load<SpriteFont>("monogram");
+            gameOver = Content.Load<Texture2D>("game_over");
+            
 
             // TODO: use this.Content to load your game content here
         }
@@ -156,6 +159,14 @@ namespace Tama_Caretaker
                     break;
 
                 case GameState.GameOver:
+                    if (SingleKeyPress(Keys.Space, kbState, prevkbState))
+                    {
+                        gameState = GameState.TamagachiMenu;
+                    }
+                    if (SingleKeyPress(Keys.Q, kbState, prevkbState))
+                    {
+                        gameState = GameState.TitleScreen;
+                    }
                     break;
 
 
@@ -171,7 +182,7 @@ namespace Tama_Caretaker
 
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.Magenta);
 
             _spriteBatch.Begin();
 
@@ -184,6 +195,8 @@ namespace Tama_Caretaker
                     break;
 
                 case GameState.Instructions:
+                    _spriteBatch.DrawString(monogram, "How To Play:", new Vector2(screenWidth / 2, screenHeight / 2),
+                        Color.White, 0f, new Vector2(0, 0), new Vector2(4.0f, 4.0f), SpriteEffects.None, 0f);
                     break;
 
                 case GameState.Credits:
@@ -193,8 +206,8 @@ namespace Tama_Caretaker
                     _spriteBatch.Draw(tamagotchi, new Rectangle(
                     (screenWidth - tamagotchi.Width) / 2,
                     (screenHeight - tamagotchi.Height) / 2,
-                    tamagotchi.Width,
-                    tamagotchi.Height),
+                    tamagotchi.Width*10,
+                    tamagotchi.Height*10),
                     Color.White);
 
                     playerTamagochi.DrawBars(_spriteBatch);
@@ -211,13 +224,14 @@ namespace Tama_Caretaker
                     break;
 
                 case GameState.GameOver:
+
                     break;
 
             }
 
 
 
-            _spriteBatch.DrawString(monogram, "Hello world!", new Vector2((GraphicsDevice.Viewport.Bounds.Width - 100) / 2, (GraphicsDevice.Viewport.Bounds.Height + 100 )/ 2), Color.White);
+
 
             _spriteBatch.End();
 
