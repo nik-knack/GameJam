@@ -9,7 +9,7 @@ using System.Security.Cryptography;
 namespace Tama_Caretaker
 {
     enum GameState
-    {00g
+    {
         TitleScreen,
         Instructions,
         Credits,
