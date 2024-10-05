@@ -100,13 +100,13 @@ namespace Tama_Caretaker
 
 
             playerTamagochi = new Tamagotchi(loadingBars, cornTex, potatoTex, carrotTex,
-                feedFX);
+                feedFX, winFX);
             menuSong = Content.Load<Song>("panorama");
 
             gameState = GameState.TitleScreen;
 
             SoundEffect.MasterVolume = 0.5f;
-            MediaPlayer.Volume -= 0.6f;
+            MediaPlayer.Volume -= 0.8f;
             MediaPlayer.Play(menuSong);
             MediaPlayer.IsRepeating = true;
             // TODO: use this.Content to load your game content here
@@ -218,7 +218,15 @@ namespace Tama_Caretaker
 
                     if (SingleKeyPress(Keys.Q, kbState, prevkbState))
                     {
-                        cancelFX.Play();
+                        if(playerTamagochi.completed)
+                        {
+                            winFX.Play();
+                        }
+                        else
+                        {
+                            cancelFX.Play();
+                        }
+                        playerTamagochi.FeedReset();
                         gameState = GameState.TamagachiMenu;
                     }
                     break;
@@ -243,10 +251,7 @@ namespace Tama_Caretaker
                         gameState = GameState.TitleScreen;
                     }
                     break;
-
-
             }
-
 
             prevkbState = kbState;
             prevMState = mState;
@@ -327,10 +332,6 @@ namespace Tama_Caretaker
                     break;
 
             }
-
-
-
-
 
             _spriteBatch.End();
 
