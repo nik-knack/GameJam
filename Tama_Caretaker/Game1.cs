@@ -46,6 +46,7 @@ namespace Tama_Caretaker
         private SoundEffect cancelFX;
         private SoundEffect menuFX;
         private SoundEffect minigameFX;
+        private SoundEffect feedFX;
         private Song menuSong;
         public Game1()
         {
@@ -88,8 +89,11 @@ namespace Tama_Caretaker
             cancelFX = Content.Load<SoundEffect>("cancel");
             menuFX = Content.Load<SoundEffect>("main_select");
             minigameFX = Content.Load<SoundEffect>("minigame_select");
+            feedFX = Content.Load<SoundEffect>("feeding");
 
-            playerTamagochi = new Tamagotchi(loadingBars, cornTex, potatoTex, carrotTex, mState, prevMState);
+
+            playerTamagochi = new Tamagotchi(loadingBars, cornTex, potatoTex, carrotTex, mState, prevMState,
+                feedFX);
             menuSong = Content.Load<Song>("panorama");
 
             gameState = GameState.TitleScreen;

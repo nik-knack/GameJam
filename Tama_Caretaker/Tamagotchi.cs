@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Audio;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,7 +33,8 @@ namespace Tama_Caretaker
 
         private MouseState mState;
         private MouseState prevMState;
-        
+
+        private SoundEffect feedFX;
 
         int feedFrame;
         int sleepFrame;
@@ -52,7 +54,8 @@ namespace Tama_Caretaker
 
         public Tamagotchi(Texture2D loadingBars,
             Texture2D cornTex, Texture2D potatoTex, Texture2D carrotTex,
-            MouseState mState, MouseState prevMState)
+            MouseState mState, MouseState prevMState,
+            SoundEffect feedFX)
         {
             sleepBarFrame = 7;
             hungerBarFrame = 7;
@@ -64,6 +67,7 @@ namespace Tama_Caretaker
             feedFps = 0.10f;
             playFps = 0.18f;
 
+            this.feedFX = feedFX;
             this.potatoTex = potatoTex;
             this.carrotTex = carrotTex;
             this.cornTex = cornTex;
@@ -144,16 +148,13 @@ namespace Tama_Caretaker
                 isPopulated = true;
             }
 
-            for (int i = 0; i < foodList.Count;i++)
+            foreach(Food food in  foodList)
             {
-                Food food = foodList[i];
-
-                if (food.CheckCollision(mState))
-                {
-                    foodList.RemoveAt(i);
+                if (food.CheckCollision(mState)){
+                    feedFX.Play();
+                    foodList.Remove(food);
                 }
             }
-            
         }
 
         public void FeedDraw(SpriteBatch sb)
