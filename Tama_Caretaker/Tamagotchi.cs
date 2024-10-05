@@ -31,9 +31,6 @@ namespace Tama_Caretaker
         private List<Food> foodList;
         private Random random = new Random();
 
-        private MouseState mState;
-        private MouseState prevMState;
-
         private SoundEffect feedFX;
 
         int feedFrame;
@@ -54,7 +51,6 @@ namespace Tama_Caretaker
 
         public Tamagotchi(Texture2D loadingBars,
             Texture2D cornTex, Texture2D potatoTex, Texture2D carrotTex,
-            MouseState mState, MouseState prevMState,
             SoundEffect feedFX)
         {
             sleepBarFrame = 7;
@@ -71,9 +67,6 @@ namespace Tama_Caretaker
             this.potatoTex = potatoTex;
             this.carrotTex = carrotTex;
             this.cornTex = cornTex;
-
-            this.mState = mState;
-            this.prevMState = prevMState;
 
             foodList = new List<Food>();
 
@@ -122,7 +115,7 @@ namespace Tama_Caretaker
            }
         }
         
-        public void FeedUpdate(GameTime gameTime)
+        public void FeedUpdate(GameTime gameTime, MouseState mState, MouseState prevMState)
         {
             if (!isPopulated)
             {
@@ -148,11 +141,12 @@ namespace Tama_Caretaker
                 isPopulated = true;
             }
 
-            foreach(Food food in  foodList)
+            for (int i = 0; i < foodList.Count; i++)
             {
-                if (food.CheckCollision(mState)){
+                if (SingleLeftMousePress(mState, prevMState) && foodList[i].CheckCollision(mState))
+                {
                     feedFX.Play();
-                    foodList.Remove(food);
+                    foodList.RemoveAt(i);
                 }
             }
         }
