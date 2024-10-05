@@ -20,6 +20,7 @@ namespace Tama_Caretaker
     {
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
+        SpriteFont monogram;
 
         private Texture2D loadingBars;
         private Texture2D tamagotchi;
@@ -49,6 +50,7 @@ namespace Tama_Caretaker
             loadingBars = Content.Load<Texture2D>("loading_bars");
             tamagotchi = Content.Load<Texture2D>("tamagotchi");
             playerTamagochi = new Tamagotchi(tamagotchi, loadingBars);
+            monogram = Content.Load<SpriteFont>("monogram");
 
             // TODO: use this.Content to load your game content here
         }
@@ -81,6 +83,8 @@ namespace Tama_Caretaker
 
             playerTamagochi.DrawBars(_spriteBatch);
             playerTamagochi.DrawBarOutline(_spriteBatch);
+
+            _spriteBatch.DrawString(monogram, "Hello world!", new Vector2((GraphicsDevice.Viewport.Bounds.Width - 100) / 2, (GraphicsDevice.Viewport.Bounds.Height + 100 )/ 2), Color.White);
 
             _spriteBatch.End();
 

@@ -25,6 +25,16 @@
 /processorParam:TextureFormat=Color
 /build:loading_bars.png
 
+#begin monogram.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:monogram.spritefont
+
+#begin monogram.ttf
+/copy:monogram.ttf
+
 #begin tamagotchi.png
 /importer:TextureImporter
 /processor:TextureProcessor
