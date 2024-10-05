@@ -13,6 +13,18 @@
 
 #---------------------------------- Content ---------------------------------#
 
+#begin ../../../../../Downloads/8-16bit+Sound+assets+(x25)/sfx pack/minigame_select.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:../../../../../Downloads/8-16bit+Sound+assets+(x25)/sfx pack/minigame_select.wav;minigame_select.wav
+
+#begin cancel.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:cancel.wav
+
 #begin game_over.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -36,6 +48,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:loading_bars.png
+
+#begin main_select.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:main_select.wav
+
+#begin minigame_select.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:minigame_select.wav
 
 #begin monogram.spritefont
 /importer:FontDescriptionImporter
