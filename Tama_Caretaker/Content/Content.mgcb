@@ -43,6 +43,12 @@
 /processorParam:TextureFormat=Color
 /build:corn.png
 
+#begin feeding.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:feeding.wav
+
 #begin game_over_background.png
 /importer:TextureImporter
 /processor:TextureProcessor
