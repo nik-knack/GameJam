@@ -161,3 +161,9 @@
 /processorParam:TextureFormat=Color
 /build:tamagotchi.png
 
+#begin win.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:win.wav
+
