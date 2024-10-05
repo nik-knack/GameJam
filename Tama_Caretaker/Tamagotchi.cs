@@ -83,7 +83,6 @@ namespace Tama_Caretaker
             playFps = 0.18f;
 
             this.feedFX = feedFX;
-            this.winFX = winFX;
             this.potatoTex = potatoTex;
             this.carrotTex = carrotTex;
             this.cornTex = cornTex;
