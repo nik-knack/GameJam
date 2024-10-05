@@ -1,6 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
+using Microsoft.Xna.Framework.Audio;
 using System.Diagnostics.Metrics;
 using System.Security.Cryptography;
 
@@ -35,6 +37,8 @@ namespace Tama_Caretaker
         private Texture2D tamagotchi;
         private Texture2D gameOver;
         private Tamagotchi playerTamagochi;
+        private SoundEffect cancelFX;
+        private SoundEffect menuFX;
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);
@@ -68,6 +72,9 @@ namespace Tama_Caretaker
             playerTamagochi = new Tamagotchi(tamagotchi, loadingBars);
             monogram = Content.Load<SpriteFont>("monogram");
             gameOver = Content.Load<Texture2D>("game_over");
+            cancelFX = Content.Load<SoundEffect>("cancel");
+            menuFX = Content.Load<SoundEffect>("main_select");
+
             
 
             // TODO: use this.Content to load your game content here
@@ -84,16 +91,19 @@ namespace Tama_Caretaker
                 case GameState.TitleScreen:
                     if(SingleKeyPress(Keys.Space, kbState, prevkbState))
                     {
+                        menuFX.Play();
                         gameState = GameState.TamagachiMenu;
                     }
 
                     if (SingleKeyPress(Keys.C, kbState, prevkbState))
                     {
+                        menuFX.Play();
                         gameState = GameState.Credits;
                     }
 
                     if (SingleKeyPress(Keys.I, kbState, prevkbState))
                     {
+                        menuFX.Play();
                         gameState = GameState.Instructions;
                     }
                     break;
@@ -101,11 +111,13 @@ namespace Tama_Caretaker
                 case GameState.Instructions:
                     if (SingleKeyPress(Keys.Q, kbState, prevkbState))
                     {
+                        cancelFX.Play();
                         gameState = GameState.TitleScreen;
                     }
 
                     if (SingleKeyPress(Keys.Space, kbState, prevkbState))
                     {
+                        menuFX.Play();
                         gameState = GameState.TamagachiMenu;
                     }
                     break;
@@ -113,6 +125,7 @@ namespace Tama_Caretaker
                 case GameState.Credits:
                     if (SingleKeyPress(Keys.Q, kbState, prevkbState))
                     {
+                        cancelFX.Play();
                         gameState = GameState.TitleScreen;
                     }
                     break;
@@ -140,6 +153,7 @@ namespace Tama_Caretaker
                 case GameState.SleepMinigame:
                     if (SingleKeyPress(Keys.Q, kbState, prevkbState))
                     {
+                        cancelFX.Play();
                         gameState = GameState.TamagachiMenu;
                     }
                     break;
@@ -147,6 +161,7 @@ namespace Tama_Caretaker
                 case GameState.FeedMinigame:
                     if (SingleKeyPress(Keys.Q, kbState, prevkbState))
                     {
+                        cancelFX.Play();
                         gameState = GameState.TamagachiMenu;
                     }
                     break;
@@ -154,8 +169,10 @@ namespace Tama_Caretaker
                 case GameState.PlayMinigame:
                     if (SingleKeyPress(Keys.Q, kbState, prevkbState))
                     {
+                        cancelFX.Play();
                         gameState = GameState.TamagachiMenu;
                     }
+
                     break;
 
                 case GameState.GameOver:

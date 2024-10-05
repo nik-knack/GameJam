@@ -29,7 +29,6 @@ namespace Tama_Caretaker
         int sleepFrame;
         int playFrame;
 
-        double timeCounter;
         double timeCounterSleepBar;
         double timeCounterHungerBar;
         double timeCounterPlayBar;
