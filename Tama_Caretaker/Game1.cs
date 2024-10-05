@@ -1,6 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System.Diagnostics.Metrics;
+using System.Security.Cryptography;
 
 namespace Tama_Caretaker
 {
@@ -13,7 +15,7 @@ namespace Tama_Caretaker
         SleepMinigame,
         FeedMinigame,
         PlayMinigame,
-
+        GameOver
 
     }
     public class Game1 : Game
@@ -21,6 +23,13 @@ namespace Tama_Caretaker
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
         SpriteFont monogram;
+        private GameState gameState;
+        private int screenWidth;
+        private int screenHeight;
+
+        private KeyboardState kbState;
+        private KeyboardState prevkbState;
+        
 
         private Texture2D loadingBars;
         private Texture2D tamagotchi;
@@ -40,6 +49,8 @@ namespace Tama_Caretaker
             _graphics.PreferredBackBufferHeight = 720;
             _graphics.ApplyChanges();
 
+            gameState = GameState.TitleScreen;
+
             base.Initialize();
         }
 
@@ -47,6 +58,10 @@ namespace Tama_Caretaker
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
+            screenWidth = GraphicsDevice.Viewport.Bounds.Width;
+            screenHeight = GraphicsDevice.Viewport.Bounds.Height;
+
+            gameState = GameState.TitleScreen;
             loadingBars = Content.Load<Texture2D>("loading_bars");
             tamagotchi = Content.Load<Texture2D>("tamagotchi");
             playerTamagochi = new Tamagotchi(tamagotchi, loadingBars);
@@ -59,8 +74,95 @@ namespace Tama_Caretaker
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
+            kbState = Keyboard.GetState();
 
-            playerTamagochi.UpdateAnimations(gameTime);
+            switch (gameState)
+            {
+                case GameState.TitleScreen:
+                    if(SingleKeyPress(Keys.Space, kbState, prevkbState))
+                    {
+                        gameState = GameState.TamagachiMenu;
+                    }
+
+                    if (SingleKeyPress(Keys.C, kbState, prevkbState))
+                    {
+                        gameState = GameState.Credits;
+                    }
+
+                    if (SingleKeyPress(Keys.I, kbState, prevkbState))
+                    {
+                        gameState = GameState.Instructions;
+                    }
+                    break;
+
+                case GameState.Instructions:
+                    if (SingleKeyPress(Keys.Q, kbState, prevkbState))
+                    {
+                        gameState = GameState.TitleScreen;
+                    }
+
+                    if (SingleKeyPress(Keys.Space, kbState, prevkbState))
+                    {
+                        gameState = GameState.TamagachiMenu;
+                    }
+                    break;
+
+                case GameState.Credits:
+                    if (SingleKeyPress(Keys.Q, kbState, prevkbState))
+                    {
+                        gameState = GameState.TitleScreen;
+                    }
+                    break;
+
+                case GameState.TamagachiMenu:
+                    if (SingleKeyPress(Keys.S, kbState, prevkbState))
+                    {
+                        gameState = GameState.SleepMinigame;
+                    }
+
+                    if (SingleKeyPress(Keys.P, kbState, prevkbState))
+                    {
+                        gameState = GameState.PlayMinigame;
+                    }
+
+                    if (SingleKeyPress(Keys.F, kbState, prevkbState))
+                    {
+                        gameState = GameState.FeedMinigame;
+                    }
+
+                    playerTamagochi.UpdateAnimations(gameTime);
+
+                    break;
+
+                case GameState.SleepMinigame:
+                    if (SingleKeyPress(Keys.Q, kbState, prevkbState))
+                    {
+                        gameState = GameState.TamagachiMenu;
+                    }
+                    break;
+
+                case GameState.FeedMinigame:
+                    if (SingleKeyPress(Keys.Q, kbState, prevkbState))
+                    {
+                        gameState = GameState.TamagachiMenu;
+                    }
+                    break;
+
+                case GameState.PlayMinigame:
+                    if (SingleKeyPress(Keys.Q, kbState, prevkbState))
+                    {
+                        gameState = GameState.TamagachiMenu;
+                    }
+                    break;
+
+                case GameState.GameOver:
+                    break;
+
+
+            }
+
+
+            prevkbState = kbState;
 
             // TODO: Add your update logic here
 
@@ -73,16 +175,47 @@ namespace Tama_Caretaker
 
             _spriteBatch.Begin();
 
-            _spriteBatch.Draw(loadingBars, new Rectangle(loadingBars.Width/8, 0,loadingBars.Width/8, loadingBars.Height/3 ), Color.White);
-            _spriteBatch.Draw(tamagotchi, new Rectangle(
-                (GraphicsDevice.Viewport.Bounds.Width - tamagotchi.Width)/2, 
-                (GraphicsDevice.Viewport.Bounds.Height - tamagotchi.Height)/2, 
-                tamagotchi.Width, 
-                tamagotchi.Height), 
-                Color.White);
+            switch (gameState)
+            {
+                case GameState.TitleScreen:
+                    _spriteBatch.DrawString(monogram, "Welcome to Tama-Caretaker!",
+                        new Vector2((screenWidth/2) - 150, (screenHeight/2) -100), 
+                        Color.White);
+                    break;
 
-            playerTamagochi.DrawBars(_spriteBatch);
-            playerTamagochi.DrawBarOutline(_spriteBatch);
+                case GameState.Instructions:
+                    break;
+
+                case GameState.Credits:
+                    break;
+
+                case GameState.TamagachiMenu:
+                    _spriteBatch.Draw(tamagotchi, new Rectangle(
+                    (screenWidth - tamagotchi.Width) / 2,
+                    (screenHeight - tamagotchi.Height) / 2,
+                    tamagotchi.Width,
+                    tamagotchi.Height),
+                    Color.White);
+
+                    playerTamagochi.DrawBars(_spriteBatch);
+                    playerTamagochi.DrawBarOutline(_spriteBatch);
+                    break;
+
+                case GameState.SleepMinigame:
+                    break;
+
+                case GameState.FeedMinigame:
+                    break;
+
+                case GameState.PlayMinigame:
+                    break;
+
+                case GameState.GameOver:
+                    break;
+
+            }
+
+
 
             _spriteBatch.DrawString(monogram, "Hello world!", new Vector2((GraphicsDevice.Viewport.Bounds.Width - 100) / 2, (GraphicsDevice.Viewport.Bounds.Height + 100 )/ 2), Color.White);
 
@@ -91,6 +224,11 @@ namespace Tama_Caretaker
             // TODO: Add your drawing code here
 
             base.Draw(gameTime);
+        }
+
+        private bool SingleKeyPress(Keys key, KeyboardState kbState, KeyboardState prevKbState)
+        {
+            return kbState.IsKeyDown(key) && prevkbState.IsKeyUp(key);
         }
     }
 }

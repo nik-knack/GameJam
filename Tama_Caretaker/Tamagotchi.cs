@@ -74,7 +74,7 @@ namespace Tama_Caretaker
         public void DrawBars(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(loadingBars,new Vector2(500,100),
-                new Rectangle(sleepFrame * BARFRAMEWIDTH - BARFRAMEWIDTH, BARFRAMEHEIGHT*0, BARFRAMEWIDTH, BARFRAMEHEIGHT),
+                new Rectangle(sleepFrame * BARFRAMEWIDTH, BARFRAMEHEIGHT*0, BARFRAMEWIDTH, BARFRAMEHEIGHT),
             Color.White, 0, new Vector2(0, 0), new Vector2(5.0f, 5.0f), SpriteEffects.None, 1.0f);
 
             spriteBatch.Draw(loadingBars, new Vector2(500, 170),
