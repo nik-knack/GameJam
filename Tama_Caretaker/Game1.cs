@@ -44,6 +44,7 @@ namespace Tama_Caretaker
         private Texture2D mainBackground;
         private Texture2D tamagotchiBackground;
         private Texture2D gameOverBackground;
+        private Texture2D titleCard;
 
         private Tamagotchi playerTamagochi;
         private SoundEffect cancelFX;
@@ -88,6 +89,7 @@ namespace Tama_Caretaker
             mainBackground = Content.Load<Texture2D>("main_background");
             tamagotchiBackground = Content.Load<Texture2D>("tamagotchi_background");
             gameOverBackground = Content.Load<Texture2D>("game_over_background");
+            titleCard = Content.Load<Texture2D>("title");
 
 
             monogram = Content.Load<SpriteFont>("monogram");
@@ -265,8 +267,16 @@ namespace Tama_Caretaker
             switch (gameState)
             {
                 case GameState.TitleScreen:
-                        _spriteBatch.Draw(mainBackground, new Rectangle(0, 0,
-                            mainBackground.Width, mainBackground.Height), Color.White);
+                    _spriteBatch.Draw(mainBackground, new Rectangle(0, 0,
+                        mainBackground.Width, mainBackground.Height), Color.White);
+
+                    _spriteBatch.Draw(titleCard, new Rectangle(
+                        (screenWidth - titleCard.Width) / 2,
+                        (screenHeight - titleCard.Height) / 2,
+                        titleCard.Width, 
+                        titleCard.Height), 
+                        Color.White);
+
                     _spriteBatch.DrawString(monogram, "Welcome to Tama-Caretaker!",
                         new Vector2((screenWidth/2) - 150, (screenHeight/2) -100), 
                         Color.White);
