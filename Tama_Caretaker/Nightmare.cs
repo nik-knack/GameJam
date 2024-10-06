@@ -90,6 +90,4 @@ namespace Tama_Caretaker
             position.Y = 0;
         }
     }
-
-
 }
