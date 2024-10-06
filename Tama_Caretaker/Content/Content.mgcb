@@ -221,6 +221,18 @@
 /processorParam:TextureFormat=Color
 /build:tamagotchi_small.png
 
+#begin tamagotchi_smallfr.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:tamagotchi_smallfr.png
+
 #begin tamagotchi.png
 /importer:TextureImporter
 /processor:TextureProcessor

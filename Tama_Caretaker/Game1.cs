@@ -312,13 +312,13 @@ namespace Tama_Caretaker
                         Color.White);
 
                     _spriteBatch.DrawString(monogram, "Press Space to Start!",
-                        new Vector2((screenWidth / 2) - 150, (screenHeight / 2) + 100),
+                        new Vector2((screenWidth / 2) - 230, (screenHeight / 2) + 100),
                         Color.Brown);
                     _spriteBatch.DrawString(monogram, "Press I for instructions",
-                        new Vector2((screenWidth / 2) - 150, (screenHeight / 2) + 200),
+                        new Vector2((screenWidth / 2) - 230, (screenHeight / 2) + 200),
                         Color.Brown);
                     _spriteBatch.DrawString(monogram, "Press C for credits",
-                        new Vector2((screenWidth / 2) - 150, (screenHeight / 2) + 240),
+                        new Vector2((screenWidth / 2) - 230, (screenHeight / 2) + 240),
                         Color.Brown);
                     break;
 
@@ -333,8 +333,11 @@ namespace Tama_Caretaker
                             howToPlayCard.Width, 
                             howToPlayCard.Height), 
                         Color.White);
-                    _spriteBatch.DrawString(monogram, "How To Play:", new Vector2(screenWidth / 2, screenHeight / 2),
-                        Color.White, 0f, new Vector2(0, 0), new Vector2(4.0f, 4.0f), SpriteEffects.None, 0f);
+                    _spriteBatch.DrawString(monogram, "How To Play:", new Vector2((screenWidth / 2) - 230, screenHeight / 2), Color.Brown);
+                    
+                    _spriteBatch.DrawString(monogram, "Press Q to go back",
+                        new Vector2((screenWidth / 2) - 230, (screenHeight / 2) + 250),
+                        Color.Brown);
                     break;
 
                 case GameState.Credits:
@@ -353,6 +356,10 @@ namespace Tama_Caretaker
                         "- SFX: JDWasabi\n" +
                         "- Songs: Zakiro\n",
                         new Vector2((screenWidth / 2) - 230, (screenHeight / 2)-50),
+                        Color.Brown);
+
+                    _spriteBatch.DrawString(monogram, "Press Q to go back",
+                        new Vector2((screenWidth / 2) - 230, (screenHeight / 2) + 250),
                         Color.Brown);
                     break;
 
