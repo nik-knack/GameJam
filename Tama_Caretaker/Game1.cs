@@ -331,7 +331,13 @@ namespace Tama_Caretaker
                             howToPlayCard.Width, 
                             howToPlayCard.Height), 
                         Color.White);
-                    _spriteBatch.DrawString(monogram, "How To Play:", new Vector2((screenWidth / 2) - 230, screenHeight / 2), Color.Brown);
+                    _spriteBatch.DrawString(monogram, "How To Play:\n" +
+                        "Take care of your Tama!\n" +
+                        "Keep your Tama well rested\n" +
+                        "and feed.\n" +
+                        "Play minigames to fill up your\n" +
+                        "Sleepiness and Hunger meters.", 
+                        new Vector2((screenWidth / 2) - 230, screenHeight / 2- 50), Color.Brown);
                     
                     _spriteBatch.DrawString(monogram, "Press Q to go back",
                         new Vector2((screenWidth / 2) - 230, (screenHeight / 2) + 250),
@@ -375,6 +381,16 @@ namespace Tama_Caretaker
                     playerTamagochi.DrawBars(_spriteBatch);
                     playerTamagochi.DrawBarOutline(_spriteBatch);
                     playerTamagochi.DrawIcons(_spriteBatch);
+
+                    _spriteBatch.DrawString(monogram, "Press F to feed",
+                       new Vector2((screenWidth / 2) + 200, (screenHeight / 2) + 250),
+                       Color.Brown);
+                    _spriteBatch.DrawString(monogram, "Press S to sleep",
+                       new Vector2((screenWidth / 2) -100, (screenHeight / 2) + 250),
+                       Color.Brown);
+                    _spriteBatch.DrawString(monogram, "Press P to play",
+                       new Vector2((screenWidth / 2) - 400, (screenHeight / 2) + 250),
+                       Color.Brown);
                     break;
 
                 case GameState.SleepMinigame:
@@ -399,8 +415,11 @@ namespace Tama_Caretaker
                 case GameState.GameOver: 
                     _spriteBatch.Draw(gameOverBackground, new Rectangle(0, 0,
                         gameOverBackground.Width, gameOverBackground.Height), Color.White);
-                    _spriteBatch.Draw(gameOver, new Rectangle(0,0,
+                    _spriteBatch.Draw(gameOver, new Rectangle(0, 0,
                         gameOver.Width, gameOver.Height), Color.White);
+                    _spriteBatch.DrawString(monogram, "Press Space to restart!",
+                       new Vector2((screenWidth / 2) - 150, (screenHeight / 2) + 250),
+                       Color.Brown);
 
                     break;
 
