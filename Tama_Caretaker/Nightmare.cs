@@ -20,11 +20,11 @@ namespace Tama_Caretaker
 
         private bool randCheck = false;
 
-        int frame;
-        double timeCounter;
-        float fps;
-        float timePerFrame;
-        const int GHOSTFRAMES = 4;
+        //int frame;
+        //double timeCounter;
+        //float fps;
+        //float timePerFrame;
+        //const int GHOSTFRAMES = 4;
         const int GHOSTWIDTH = 96;
         const int GHOSTHEIGHT = 96;
 
@@ -33,10 +33,10 @@ namespace Tama_Caretaker
             this.position = position;
             this.texture = texture;
 
-            this.frame = 0;
-            this.fps = 6.0f;
-            timeCounter = 0;
-            this.timePerFrame = 1.0f / fps;
+            //this.frame = 0;
+            //this.fps = 6.0f;
+            //timeCounter = 0;
+            //this.timePerFrame = 1.0f / fps;
 
 
         }
@@ -67,7 +67,7 @@ namespace Tama_Caretaker
         public void Draw(SpriteBatch sb)
         {
             sb.Draw(texture, new Vector2(position.X, position.Y),
-                new Rectangle(frame * GHOSTWIDTH, GHOSTHEIGHT * 0, GHOSTWIDTH, GHOSTHEIGHT),
+                new Rectangle(GHOSTWIDTH, GHOSTHEIGHT * 0, GHOSTWIDTH, GHOSTHEIGHT),
                 Color.White, 0, new Vector2(0, 0), new Vector2(1.0f, 1.0f), SpriteEffects.None, 1.0f);
         }
         public void NightmareReset()
