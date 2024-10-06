@@ -16,7 +16,8 @@ namespace Tama_Caretaker
         private Texture2D potatoTex;
         private Texture2D carrotTex;
         private Texture2D cornTex;
-        private Texture2D drumstickTex;
+        private Texture2D drumstickIcon;
+        private Texture2D sleepIcon;
 
         private const int BARFRAMECOUNTER = 7;
 
@@ -71,7 +72,7 @@ namespace Tama_Caretaker
 
         public Tamagotchi(Texture2D loadingBars,
             Texture2D cornTex, Texture2D potatoTex, Texture2D carrotTex,
-            Texture2D drumstickTex,
+            Texture2D drumstickTex, Texture2D sleepIcon,
             SoundEffect feedFX, SoundEffect winFX)
         {
             sleepBarFrame = 7;
@@ -88,7 +89,8 @@ namespace Tama_Caretaker
             this.potatoTex = potatoTex;
             this.carrotTex = carrotTex;
             this.cornTex = cornTex;
-            this.drumstickTex = drumstickTex;
+            this.drumstickIcon = drumstickTex;
+            this.sleepIcon = sleepIcon;
 
             foodList = new List<Food>();
 
@@ -227,7 +229,12 @@ namespace Tama_Caretaker
 
         public void DrawIcons(SpriteBatch spriteBatch)
         {
-
+            spriteBatch.Draw(drumstickIcon,
+                new Rectangle(BARFRAMEWIDTH*5,BARFRAMEHEIGHT*5, drumstickIcon.Width, drumstickIcon.Height)
+                , Color.White);
+            spriteBatch.Draw(sleepIcon,
+                new Rectangle(BARFRAMEWIDTH * 5, 0, sleepIcon.Width, sleepIcon.Height)
+                , Color.White);
         }        
         public void Reset()
         {
