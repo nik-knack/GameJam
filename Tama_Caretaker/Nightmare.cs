@@ -15,7 +15,7 @@ namespace Tama_Caretaker
         private int x;
         private int y;
         private Random random = new Random();
-        private Rectangle position;
+        public Rectangle position;
         private Texture2D texture;
 
         private bool randCheck = false;

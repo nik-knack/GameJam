@@ -15,10 +15,11 @@ namespace Tama_Caretaker
         Texture2D texture;
         Rectangle position;
         Nightmare nightmare;
+        Tamagotchi tamagotchiCom;
         int screenWidth;
         int screenHeight;
 
-        public SleepPlayer(Nightmare nightmare, Texture2D texture, Rectangle position,
+        public SleepPlayer(Nightmare nightmare, Tamagotchi tamagotchiCom, Texture2D texture, Rectangle position,
             int screenWidth, int screenHeight)
         {
             this.texture = texture;
@@ -26,6 +27,7 @@ namespace Tama_Caretaker
             this.nightmare = nightmare;
             this.screenWidth = screenWidth;
             this.screenHeight = screenHeight;
+            this.tamagotchiCom = tamagotchiCom;
             
         }
 
@@ -58,6 +60,11 @@ namespace Tama_Caretaker
             if (position.X > screenWidth - texture.Width)
             {
                 position.X= screenWidth-texture.Width;
+            }
+
+            if (!CheckColisions(nightmare.position) && tamagotchiCom.sleepTimer < 0)
+            {
+                tamagotchiCom.completed = true;
             }
         }
 

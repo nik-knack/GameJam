@@ -62,6 +62,9 @@ namespace Tama_Caretaker
         double timeCounterHungerBar;
         double timeCounterPlayBar;
 
+        public double feedTimer = 15;
+        public double sleepTimer;
+
         float sleepFps;
         float feedFps;
         float playFps;
@@ -142,6 +145,8 @@ namespace Tama_Caretaker
         
         public void FeedUpdate(GameTime gameTime, MouseState mState, MouseState prevMState)
         {
+            feedTimer -= gameTime.ElapsedGameTime.TotalSeconds;
+
             if (!isPopulated)
             {
                 for (int i = 0; i < 10; i++)
@@ -189,12 +194,6 @@ namespace Tama_Caretaker
                 foodList[i].Draw(sb);
             }
         }
-
-        public void SleepUpdate (GameTime gameTime)
-        {
-
-        }
-
 
         public void DrawBarOutline(SpriteBatch spriteBatch)
         {
@@ -246,9 +245,16 @@ namespace Tama_Caretaker
 
         public void FeedReset()
         {
+            feedTimer = 15;
             completed = false;
             isPopulated = false;
             foodList.Clear();
+        }
+
+        public void SleepReset()
+        {
+
+            completed = false;
         }
 
         private bool SingleLeftMousePress(MouseState mouseState, MouseState prevMouseState)
