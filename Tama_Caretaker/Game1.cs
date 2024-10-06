@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework.Media;
 using Microsoft.Xna.Framework.Audio;
 using System.Diagnostics.Metrics;
 using System.Security.Cryptography;
+using System;
 
 namespace Tama_Caretaker
 {
@@ -93,7 +94,7 @@ namespace Tama_Caretaker
 
             loadingBars = Content.Load<Texture2D>("loading_bars");
             tamagotchiLarge = Content.Load<Texture2D>("tamagotchi");
-            tamagotchiSmall = Content.Load<Texture2D>("tamagotchi_small");
+            tamagotchiSmall = Content.Load<Texture2D>("tamagotchi_smallfr");
             gameOver = Content.Load<Texture2D>("game_over");
             potatoTex = Content.Load<Texture2D>("potato");
             carrotTex = Content.Load<Texture2D>("carrot");
@@ -124,7 +125,7 @@ namespace Tama_Caretaker
             playerTamagochi = new Tamagotchi(loadingBars, cornTex, potatoTex, carrotTex, drumstickTex, sleepIcon,
                 feedFX, winFX);
             nightmare = new Nightmare(ghostTex, new Rectangle(0, 0, ghostTex.Width, ghostTex.Height));
-            sleepPlayer = new SleepPlayer(nightmare, tamagotchiSmall,
+            sleepPlayer = new SleepPlayer(nightmare, playerTamagochi, tamagotchiSmall,
             new Rectangle(screenWidth / 2, screenHeight / 2, tamagotchiSmall.Width, tamagotchiSmall.Height),
             screenWidth, screenHeight);
 
@@ -215,11 +216,6 @@ namespace Tama_Caretaker
                         {
                             minigameFX.Play();
                             gameState = GameState.FeedMinigame;
-                        }
-
-                        if (SingleKeyPress(Keys.G, kbState, prevkbState))
-                        {
-                            gameState = GameState.GameOver;
                         }
 
                         playerTamagochi.UpdateBarAnimations(gameTime);
@@ -395,17 +391,27 @@ namespace Tama_Caretaker
                     break;
 
                 case GameState.SleepMinigame:
+
                     _spriteBatch.Draw(tamagotchiBackground, new Rectangle(0, 0,
                         tamagotchiBackground.Width, tamagotchiBackground.Height), Color.White);
 
                     nightmare.Draw(_spriteBatch);
                     sleepPlayer.Draw(_spriteBatch);
+
+                    _spriteBatch.DrawString(monogram,
+                    $"Timer:{String.Format("{0:0.00}", playerTamagochi.sleepTimer)}",
+                   new Vector2(0, 0), Color.Brown);
                     break;
 
                 case GameState.FeedMinigame:
+
                     _spriteBatch.Draw(tamagotchiBackground, new Rectangle(0, 0,
                         tamagotchiBackground.Width, tamagotchiBackground.Height), Color.White);
                     playerTamagochi.FeedDraw(_spriteBatch);
+
+                    _spriteBatch.DrawString(monogram,
+                    $"Timer:{String.Format("{0:0.00}", playerTamagochi.feedTimer)}",
+                    new Vector2(0, 0), Color.Brown);
                     break;
 
                 case GameState.PlayMinigame:
