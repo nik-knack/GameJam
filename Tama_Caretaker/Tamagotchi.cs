@@ -99,7 +99,7 @@ namespace Tama_Caretaker
             this.timePerPlayFrame = 1.0f / playFps;
         }
         
-        public void UpdateAnimations(GameTime gameTime)
+        public void UpdateBarAnimations(GameTime gameTime)
         {
             timeCounterSleepBar += gameTime.ElapsedGameTime.TotalSeconds;
             timeCounterHungerBar += gameTime.ElapsedGameTime.TotalSeconds;

@@ -52,7 +52,7 @@ namespace Tama_Caretaker
         private Texture2D howToPlayCard;
         private Texture2D creditsCard;
 
-        private Tamagotchi playerTamagochi;
+
         private SoundEffect cancelFX;
         private SoundEffect menuFX;
         private SoundEffect minigameFX;
@@ -61,6 +61,8 @@ namespace Tama_Caretaker
         private Song menuSong;
 
         private Nightmare nightmare;
+        private Tamagotchi playerTamagochi;
+        private SleepPlayer sleepPlayer;
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);
@@ -117,8 +119,13 @@ namespace Tama_Caretaker
 
             playerTamagochi = new Tamagotchi(loadingBars, cornTex, potatoTex, carrotTex, drumstickTex, sleepIcon,
                 feedFX, winFX);
-            menuSong = Content.Load<Song>("panorama");
             nightmare = new Nightmare(ghostTex, new Rectangle(0, 0, ghostTex.Width, ghostTex.Height));
+            sleepPlayer = new SleepPlayer(nightmare, tamagotchi,
+            new Rectangle(screenWidth / 2, screenHeight / 2, tamagotchi.Width, tamagotchi.Height),
+            screenWidth, screenHeight);
+
+            menuSong = Content.Load<Song>("panorama");
+
             gameState = GameState.TitleScreen;
 
             SoundEffect.MasterVolume = 0.5f;
@@ -211,7 +218,7 @@ namespace Tama_Caretaker
                             gameState = GameState.GameOver;
                         }
 
-                        playerTamagochi.UpdateAnimations(gameTime);
+                        playerTamagochi.UpdateBarAnimations(gameTime);
                     }
                     else
                     {
@@ -225,6 +232,8 @@ namespace Tama_Caretaker
 
                     nightmare.Update(gameTime);
                     nightmare.UpdateGhostAnimations(gameTime);
+
+                    sleepPlayer.Update(gameTime, kbState);
                     if (SingleKeyPress(Keys.Q, kbState, prevkbState))
                     {
                         cancelFX.Play();
@@ -353,6 +362,7 @@ namespace Tama_Caretaker
                         tamagotchiBackground.Width, tamagotchiBackground.Height), Color.White);
 
                     nightmare.Draw(_spriteBatch);
+                    sleepPlayer.Draw(_spriteBatch);
                     break;
 
                 case GameState.FeedMinigame:
