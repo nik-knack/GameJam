@@ -401,6 +401,10 @@ namespace Tama_Caretaker
                     _spriteBatch.DrawString(monogram,
                     $"Timer:{String.Format("{0:0.00}", playerTamagochi.sleepTimer)}",
                    new Vector2(0, 0), Color.Brown);
+
+                    _spriteBatch.DrawString(monogram, "Use WASD to avoid the ghost!",
+                        new Vector2(screenWidth - 450, screenHeight - 700),
+                        Color.Brown);
                     break;
 
                 case GameState.FeedMinigame:
@@ -412,6 +416,11 @@ namespace Tama_Caretaker
                     _spriteBatch.DrawString(monogram,
                     $"Timer:{String.Format("{0:0.00}", playerTamagochi.feedTimer)}",
                     new Vector2(0, 0), Color.Brown);
+
+                    _spriteBatch.DrawString(monogram, "Left-click to collect all\n" +
+                        "the food!",
+                        new Vector2(screenWidth - 400, screenHeight - 700),
+                        Color.Brown);
                     break;
 
                 case GameState.PlayMinigame:
