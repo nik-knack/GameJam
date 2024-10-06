@@ -83,6 +83,12 @@ namespace Tama_Caretaker
                 timeCounter -= timePerFrame;
             }
         }
+
+        public void NightmareReset()
+        {
+            position.X = 0;
+            position.Y = 0;
+        }
     }
 
 

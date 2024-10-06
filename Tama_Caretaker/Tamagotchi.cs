@@ -63,7 +63,7 @@ namespace Tama_Caretaker
         double timeCounterPlayBar;
 
         public double feedTimer = 15;
-        public double sleepTimer;
+        public double sleepTimer = 10;
 
         float sleepFps;
         float feedFps;
@@ -245,7 +245,7 @@ namespace Tama_Caretaker
 
         public void FeedReset()
         {
-            feedTimer = 15;
+            feedTimer = 10;
             completed = false;
             isPopulated = false;
             foodList.Clear();
@@ -253,7 +253,7 @@ namespace Tama_Caretaker
 
         public void SleepReset()
         {
-
+            sleepTimer = 10;
             completed = false;
         }
 

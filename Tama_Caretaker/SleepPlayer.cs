@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -19,6 +20,8 @@ namespace Tama_Caretaker
         int screenWidth;
         int screenHeight;
 
+        public bool hit = false;
+
         public SleepPlayer(Nightmare nightmare, Tamagotchi tamagotchiCom, Texture2D texture, Rectangle position,
             int screenWidth, int screenHeight)
         {
@@ -33,6 +36,9 @@ namespace Tama_Caretaker
 
         public void Update(GameTime gametime, KeyboardState kbState)
         {
+
+            tamagotchiCom.sleepTimer -= gametime.ElapsedGameTime.TotalSeconds;
+
             if (kbState.IsKeyDown(Keys.W))
                 position.Y -= 4;
 
@@ -62,9 +68,15 @@ namespace Tama_Caretaker
                 position.X= screenWidth-texture.Width;
             }
 
-            if (!CheckColisions(nightmare.position) && tamagotchiCom.sleepTimer < 0)
+            if (tamagotchiCom.sleepTimer < 0)
             {
                 tamagotchiCom.completed = true;
+                tamagotchiCom.SleepFrame = 1;
+            }
+
+            if (CheckColisions(nightmare.position))
+            {
+                hit = true;
             }
         }
 
@@ -77,6 +89,14 @@ namespace Tama_Caretaker
         public bool CheckColisions(Rectangle nightmarePos)
         {
             return position.Intersects(nightmarePos);
+        }
+
+        public void Reset()
+        {
+            position.X = screenWidth/2;
+            position.Y = screenHeight/2;
+
+            hit = false;
         }
     }
 }

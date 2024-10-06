@@ -17,7 +17,7 @@ namespace Tama_Caretaker
         TamagachiMenu,
         SleepMinigame,
         FeedMinigame,
-        PlayMinigame,
+        //PlayMinigame,
         GameOver
 
     }
@@ -204,11 +204,11 @@ namespace Tama_Caretaker
                             gameState = GameState.SleepMinigame;
                         }
 
-                        if (SingleKeyPress(Keys.P, kbState, prevkbState))
-                        {
-                            minigameFX.Play();
-                            gameState = GameState.PlayMinigame;
-                        }
+                        //if (SingleKeyPress(Keys.P, kbState, prevkbState))
+                        //{
+                        //    minigameFX.Play();
+                        //    gameState = GameState.PlayMinigame;
+                        //}
 
                         if (SingleKeyPress(Keys.F, kbState, prevkbState))
                         {
@@ -232,9 +232,20 @@ namespace Tama_Caretaker
                     nightmare.UpdateGhostAnimations(gameTime);
 
                     sleepPlayer.Update(gameTime, kbState);
-                    if (SingleKeyPress(Keys.Q, kbState, prevkbState))
+
+                    if (playerTamagochi.completed)
                     {
-                        cancelFX.Play();
+                        winFX.Play();
+                        playerTamagochi.SleepReset();
+                        sleepPlayer.Reset();
+                        nightmare.NightmareReset();
+                        gameState = GameState.TamagachiMenu;
+                    }
+                    else if (sleepPlayer.hit)
+                    {
+                        nightmare.NightmareReset();
+                        playerTamagochi.SleepReset();
+                        sleepPlayer.Reset();
                         gameState = GameState.TamagachiMenu;
                     }
                     
@@ -258,14 +269,14 @@ namespace Tama_Caretaker
                     }
                     break;
 
-                case GameState.PlayMinigame:
-                    if (SingleKeyPress(Keys.Q, kbState, prevkbState))
-                    {
-                        cancelFX.Play();
-                        gameState = GameState.TamagachiMenu;
-                    }
+                //case GameState.PlayMinigame:
+                //    if (SingleKeyPress(Keys.Q, kbState, prevkbState))
+                //    {
+                //        cancelFX.Play();
+                //        gameState = GameState.TamagachiMenu;
+                //    }
 
-                    break;
+                   //break;
 
                 case GameState.GameOver:
                     if (SingleKeyPress(Keys.Space, kbState, prevkbState))
@@ -331,11 +342,15 @@ namespace Tama_Caretaker
                         Color.White);
                     _spriteBatch.DrawString(monogram, "How To Play:\n" +
                         "Take care of your Tama!\n" +
-                        "Keep your Tama well rested\n" +
-                        "and feed.\n" +
+                        "Keep your Tama well-rested\n" +
+                        "and fed.\n" +
                         "Play minigames to fill up your\n" +
-                        "Sleepiness and Hunger meters.", 
-                        new Vector2((screenWidth / 2) - 230, screenHeight / 2- 50), Color.Brown);
+                        "Sleepiness and Hunger meters.\n" +
+                        "Feed Minigame: Collect all the food\n" +
+                        "before the time runs out!\n" +
+                        "Sleep Minigame: Avoid the ghost until\n" +
+                        "time runs out!", 
+                        new Vector2((screenWidth / 2) - 230, screenHeight / 2- 90), Color.Brown);
                     
                     _spriteBatch.DrawString(monogram, "Press Q to go back",
                         new Vector2((screenWidth / 2) - 230, (screenHeight / 2) + 250),
@@ -386,9 +401,6 @@ namespace Tama_Caretaker
                     _spriteBatch.DrawString(monogram, "Press S to sleep",
                        new Vector2((screenWidth / 2) -100, (screenHeight / 2) + 250),
                        Color.Brown);
-                    _spriteBatch.DrawString(monogram, "Press P to play",
-                       new Vector2((screenWidth / 2) - 400, (screenHeight / 2) + 250),
-                       Color.Brown);
                     break;
 
                 case GameState.SleepMinigame:
@@ -402,6 +414,8 @@ namespace Tama_Caretaker
                     _spriteBatch.DrawString(monogram,
                     $"Timer:{String.Format("{0:0.00}", playerTamagochi.sleepTimer)}",
                    new Vector2(0, 0), Color.Brown);
+
+                    
                     break;
 
                 case GameState.FeedMinigame:
@@ -415,10 +429,10 @@ namespace Tama_Caretaker
                     new Vector2(0, 0), Color.Brown);
                     break;
 
-                case GameState.PlayMinigame:
-                    _spriteBatch.Draw(tamagotchiBackground, new Rectangle(0, 0,
-                        tamagotchiBackground.Width, tamagotchiBackground.Height), Color.White);
-                    break;
+                //case GameState.PlayMinigame:
+                //    _spriteBatch.Draw(tamagotchiBackground, new Rectangle(0, 0,
+                //        tamagotchiBackground.Width, tamagotchiBackground.Height), Color.White);
+                //    break;
 
                 case GameState.GameOver: 
                     _spriteBatch.Draw(gameOverBackground, new Rectangle(0, 0,
