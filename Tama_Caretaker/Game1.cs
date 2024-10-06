@@ -36,7 +36,8 @@ namespace Tama_Caretaker
         
 
         private Texture2D loadingBars;
-        private Texture2D tamagotchi;
+        private Texture2D tamagotchiLarge;
+        private Texture2D tamagotchiSmall;
         private Texture2D gameOver;
         private Texture2D potatoTex;
         private Texture2D carrotTex;
@@ -90,7 +91,8 @@ namespace Tama_Caretaker
             screenHeight = GraphicsDevice.Viewport.Bounds.Height;
 
             loadingBars = Content.Load<Texture2D>("loading_bars");
-            tamagotchi = Content.Load<Texture2D>("tamagotchi");
+            tamagotchiLarge = Content.Load<Texture2D>("tamagotchi");
+            tamagotchiSmall = Content.Load<Texture2D>("tamagotchi_small");
             gameOver = Content.Load<Texture2D>("game_over");
             potatoTex = Content.Load<Texture2D>("potato");
             carrotTex = Content.Load<Texture2D>("carrot");
@@ -120,8 +122,8 @@ namespace Tama_Caretaker
             playerTamagochi = new Tamagotchi(loadingBars, cornTex, potatoTex, carrotTex, drumstickTex, sleepIcon,
                 feedFX, winFX);
             nightmare = new Nightmare(ghostTex, new Rectangle(0, 0, ghostTex.Width, ghostTex.Height));
-            sleepPlayer = new SleepPlayer(nightmare, tamagotchi,
-            new Rectangle(screenWidth / 2, screenHeight / 2, tamagotchi.Width, tamagotchi.Height),
+            sleepPlayer = new SleepPlayer(nightmare, tamagotchiSmall,
+            new Rectangle(screenWidth / 2, screenHeight / 2, tamagotchiSmall.Width, tamagotchiSmall.Height),
             screenWidth, screenHeight);
 
             menuSong = Content.Load<Song>("panorama");
@@ -358,11 +360,11 @@ namespace Tama_Caretaker
                     _spriteBatch.Draw(tamagotchiBackground, new Rectangle(0, 0,
                         tamagotchiBackground.Width, tamagotchiBackground.Height), Color.White);
                     
-                    _spriteBatch.Draw(tamagotchi, new Rectangle(
-                    (screenWidth - tamagotchi.Width) / 2,
-                    (screenHeight - tamagotchi.Height) / 2,
-                    tamagotchi.Width,
-                    tamagotchi.Height),
+                    _spriteBatch.Draw(tamagotchiLarge, new Rectangle(
+                    (screenWidth - tamagotchiLarge.Width) / 2,
+                    (screenHeight - tamagotchiLarge.Height) / 2,
+                    tamagotchiLarge.Width,
+                    tamagotchiLarge.Height),
                     Color.White);
                     
                     playerTamagochi.DrawBars(_spriteBatch);
