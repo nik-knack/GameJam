@@ -84,6 +84,4 @@ namespace Tama_Caretaker
             }
         }
     }
-
-
 }

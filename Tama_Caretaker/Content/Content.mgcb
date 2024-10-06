@@ -67,6 +67,12 @@
 /processorParam:TextureFormat=Color
 /build:drumstick.png
 
+#begin fail.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:fail.wav
+
 #begin feeding.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor

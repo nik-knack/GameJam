@@ -59,6 +59,7 @@ namespace Tama_Caretaker
         private SoundEffect minigameFX;
         private SoundEffect feedFX;
         private SoundEffect winFX;
+        private SoundEffect failFX;
         private Song menuSong;
 
         private Nightmare nightmare;
@@ -117,6 +118,7 @@ namespace Tama_Caretaker
             minigameFX = Content.Load<SoundEffect>("minigame_select");
             feedFX = Content.Load<SoundEffect>("feeding");
             winFX = Content.Load<SoundEffect>("win");
+            failFX = Content.Load<SoundEffect>("fail");
 
 
             playerTamagochi = new Tamagotchi(loadingBars, cornTex, potatoTex, carrotTex, drumstickTex, sleepIcon,
@@ -388,10 +390,7 @@ namespace Tama_Caretaker
                        new Vector2((screenWidth / 2) + 200, (screenHeight / 2) + 250),
                        Color.Brown);
                     _spriteBatch.DrawString(monogram, "Press S to sleep",
-                       new Vector2((screenWidth / 2) -100, (screenHeight / 2) + 250),
-                       Color.Brown);
-                    _spriteBatch.DrawString(monogram, "Press P to play",
-                       new Vector2((screenWidth / 2) - 400, (screenHeight / 2) + 250),
+                       new Vector2((screenWidth / 2) -400, (screenHeight / 2) + 250),
                        Color.Brown);
                     break;
 
@@ -438,7 +437,5 @@ namespace Tama_Caretaker
         {
             return kbState.IsKeyDown(key) && prevkbState.IsKeyUp(key);
         }
-
-
     }
 }

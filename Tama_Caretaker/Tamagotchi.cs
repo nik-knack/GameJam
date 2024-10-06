@@ -255,8 +255,5 @@ namespace Tama_Caretaker
         {
             return (mouseState.LeftButton == ButtonState.Pressed) && (prevMouseState.LeftButton == ButtonState.Released);
         }
-
-
-
     }
 }
