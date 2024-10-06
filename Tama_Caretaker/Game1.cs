@@ -219,6 +219,7 @@ namespace Tama_Caretaker
                 case GameState.SleepMinigame:
 
                     nightmare.Update(gameTime);
+                    nightmare.UpdateGhostAnimations(gameTime);
                     if (SingleKeyPress(Keys.Q, kbState, prevkbState))
                     {
                         cancelFX.Play();
