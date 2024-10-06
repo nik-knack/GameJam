@@ -21,8 +21,8 @@ namespace Tama_Caretaker
 
         private const int BARFRAMECOUNTER = 7;
 
-        private const int BARFRAMEHEIGHT = 16;
-        private const int BARFRAMEWIDTH = 48;
+        private const int BARFRAMEHEIGHT = 80;
+        private const int BARFRAMEWIDTH = 240;
 
         public int sleepBarFrame;
         public int hungerBarFrame;
@@ -200,11 +200,11 @@ namespace Tama_Caretaker
         {
             spriteBatch.Draw(loadingBars, new Vector2(0, 0),
             new Rectangle(BARFRAMEWIDTH - BARFRAMEWIDTH, 0, BARFRAMEWIDTH, BARFRAMEHEIGHT),
-            Color.Coral, 0, new Vector2(0, 0), new Vector2(5.0f, 5.0f), SpriteEffects.None, 1.0f);
+            Color.Coral, 0, new Vector2(0, 0), new Vector2(1.0f, 1.0f), SpriteEffects.None, 1.0f);
 
             spriteBatch.Draw(loadingBars, new Vector2(0, 70),
             new Rectangle(BARFRAMEWIDTH - BARFRAMEWIDTH, 0, BARFRAMEWIDTH, BARFRAMEHEIGHT),
-            Color.Coral, 0, new Vector2(0, 0), new Vector2(5.0f, 5.0f), SpriteEffects.None, 1.0f);
+            Color.Coral, 0, new Vector2(0, 0), new Vector2(1.0f, 1.0f), SpriteEffects.None, 1.0f);
             /*
             spriteBatch.Draw(loadingBars, new Vector2(0, 140),
             new Rectangle(BARFRAMEWIDTH - BARFRAMEWIDTH, 0, BARFRAMEWIDTH, BARFRAMEHEIGHT),
@@ -215,11 +215,11 @@ namespace Tama_Caretaker
         {
             spriteBatch.Draw(loadingBars,new Vector2(0,0),
                 new Rectangle(sleepFrame * BARFRAMEWIDTH, BARFRAMEHEIGHT*0, BARFRAMEWIDTH, BARFRAMEHEIGHT),
-            Color.White, 0, new Vector2(0, 0), new Vector2(5.0f, 5.0f), SpriteEffects.None, 1.0f);
+            Color.White, 0, new Vector2(0, 0), new Vector2(1.0f, 1.0f), SpriteEffects.None, 1.0f);
 
             spriteBatch.Draw(loadingBars, new Vector2(0, 70),
             new Rectangle(feedFrame * BARFRAMEWIDTH, BARFRAMEHEIGHT*1, BARFRAMEWIDTH, BARFRAMEHEIGHT),
-            Color.White, 0, new Vector2(0, 0), new Vector2(5.0f, 5.0f), SpriteEffects.None, 1.0f);
+            Color.White, 0, new Vector2(0, 0), new Vector2(1.0f, 1.0f), SpriteEffects.None, 1.0f);
             /*
             spriteBatch.Draw(loadingBars, new Vector2(0, 140),
             new Rectangle(playFrame * BARFRAMEWIDTH, BARFRAMEHEIGHT * 2, BARFRAMEWIDTH, BARFRAMEHEIGHT),
@@ -230,10 +230,10 @@ namespace Tama_Caretaker
         public void DrawIcons(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(drumstickIcon,
-                new Rectangle(BARFRAMEWIDTH*5,BARFRAMEHEIGHT*5, drumstickIcon.Width, drumstickIcon.Height)
+                new Rectangle(BARFRAMEWIDTH,BARFRAMEHEIGHT, drumstickIcon.Width, drumstickIcon.Height)
                 , Color.White);
             spriteBatch.Draw(sleepIcon,
-                new Rectangle(BARFRAMEWIDTH * 5, 0, sleepIcon.Width, sleepIcon.Height)
+                new Rectangle(BARFRAMEWIDTH, 0, sleepIcon.Width, sleepIcon.Height)
                 , Color.White);
         }        
         public void Reset()
