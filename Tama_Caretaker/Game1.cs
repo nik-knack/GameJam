@@ -300,9 +300,15 @@ namespace Tama_Caretaker
                         titleCard.Height), 
                         Color.White);
 
-                    _spriteBatch.DrawString(monogram, "Welcome to Tama-Caretaker!",
-                        new Vector2((screenWidth/2) - 150, (screenHeight/2) -100), 
-                        Color.White);
+                    _spriteBatch.DrawString(monogram, "Press Space to Start!",
+                        new Vector2((screenWidth / 2) - 150, (screenHeight / 2) + 100),
+                        Color.Brown);
+                    _spriteBatch.DrawString(monogram, "Press I for instructions",
+                        new Vector2((screenWidth / 2) - 150, (screenHeight / 2) + 200),
+                        Color.Brown);
+                    _spriteBatch.DrawString(monogram, "Press C for credits",
+                        new Vector2((screenWidth / 2) - 150, (screenHeight / 2) + 240),
+                        Color.Brown);
                     break;
 
                 case GameState.Instructions:
@@ -327,9 +333,16 @@ namespace Tama_Caretaker
                     _spriteBatch.Draw(creditsCard, new Rectangle((screenWidth - creditsCard.Width)/2, 100,
                         creditsCard.Width, creditsCard.Height), Color.White);
 
-                    _spriteBatch.DrawString(monogram, "Credits",
-                        new Vector2((screenWidth / 2) - 150, (screenHeight / 2) - 100),
-                        Color.White);
+                    _spriteBatch.DrawString(monogram, "Programming: Filiberto Nieves IV\n" +
+                        "Artwork: Dania Macias\n" +
+                        "Borrowed Game Assets on itch.io:\n" +
+                        "- Fonts: datagoblin\n" +
+                        "- Loading Bars: BDragon1727\n" +
+                        "- Food Sprites: LLENJIN\n" +
+                        "- SFX: JDWasabi\n" +
+                        "- Songs: Zakiro\n",
+                        new Vector2((screenWidth / 2) - 230, (screenHeight / 2)-50),
+                        Color.Brown);
                     break;
 
                 case GameState.TamagachiMenu:
