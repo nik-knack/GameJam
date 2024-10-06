@@ -42,6 +42,7 @@ namespace Tama_Caretaker
         private Texture2D carrotTex;
         private Texture2D cornTex;
         private Texture2D ghostTex;
+        private Texture2D drumstickTex;
 
         private Texture2D mainBackground;
         private Texture2D tamagotchiBackground;
@@ -92,6 +93,7 @@ namespace Tama_Caretaker
             carrotTex = Content.Load<Texture2D>("carrot");
             cornTex = Content.Load<Texture2D>("corn");
             ghostTex = Content.Load<Texture2D>("ghostSprite");
+            drumstickTex = Content.Load<Texture2D>("drumstick");
 
             mainBackground = Content.Load<Texture2D>("main_background");
             tamagotchiBackground = Content.Load<Texture2D>("tamagotchi_background");
@@ -110,7 +112,7 @@ namespace Tama_Caretaker
             winFX = Content.Load<SoundEffect>("win");
 
 
-            playerTamagochi = new Tamagotchi(loadingBars, cornTex, potatoTex, carrotTex,
+            playerTamagochi = new Tamagotchi(loadingBars, cornTex, potatoTex, carrotTex, drumstickTex,
                 feedFX, winFX);
             menuSong = Content.Load<Song>("panorama");
             nightmare = new Nightmare(ghostTex, new Rectangle(0, 0, ghostTex.Width, ghostTex.Height));

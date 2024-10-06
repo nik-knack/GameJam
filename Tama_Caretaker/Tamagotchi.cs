@@ -16,6 +16,7 @@ namespace Tama_Caretaker
         private Texture2D potatoTex;
         private Texture2D carrotTex;
         private Texture2D cornTex;
+        private Texture2D drumstickTex;
 
         private const int BARFRAMECOUNTER = 7;
 
@@ -70,6 +71,7 @@ namespace Tama_Caretaker
 
         public Tamagotchi(Texture2D loadingBars,
             Texture2D cornTex, Texture2D potatoTex, Texture2D carrotTex,
+            Texture2D drumstickTex,
             SoundEffect feedFX, SoundEffect winFX)
         {
             sleepBarFrame = 7;
@@ -86,6 +88,7 @@ namespace Tama_Caretaker
             this.potatoTex = potatoTex;
             this.carrotTex = carrotTex;
             this.cornTex = cornTex;
+            this.drumstickTex = drumstickTex;
 
             foodList = new List<Food>();
 
@@ -118,6 +121,7 @@ namespace Tama_Caretaker
 
                 timeCounterHungerBar -= timePerFeedFrame;
             }
+            /*
             if (timeCounterPlayBar >= timePerPlayFrame)
             {
                 playFrame += 1;
@@ -127,7 +131,7 @@ namespace Tama_Caretaker
 
                 timeCounterPlayBar -= timePerPlayFrame;
             }
-
+            */
            if (playFrame >= 7 || feedFrame >= 7 || playFrame >= 7)
            {
                 isAlive = false;
@@ -199,10 +203,11 @@ namespace Tama_Caretaker
             spriteBatch.Draw(loadingBars, new Vector2(0, 70),
             new Rectangle(BARFRAMEWIDTH - BARFRAMEWIDTH, 0, BARFRAMEWIDTH, BARFRAMEHEIGHT),
             Color.Coral, 0, new Vector2(0, 0), new Vector2(5.0f, 5.0f), SpriteEffects.None, 1.0f);
-
+            /*
             spriteBatch.Draw(loadingBars, new Vector2(0, 140),
             new Rectangle(BARFRAMEWIDTH - BARFRAMEWIDTH, 0, BARFRAMEWIDTH, BARFRAMEHEIGHT),
             Color.Coral, 0, new Vector2(0, 0), new Vector2(5.0f, 5.0f), SpriteEffects.None, 1.0f);
+            */
         }
         public void DrawBars(SpriteBatch spriteBatch)
         {
@@ -213,12 +218,17 @@ namespace Tama_Caretaker
             spriteBatch.Draw(loadingBars, new Vector2(0, 70),
             new Rectangle(feedFrame * BARFRAMEWIDTH, BARFRAMEHEIGHT*1, BARFRAMEWIDTH, BARFRAMEHEIGHT),
             Color.White, 0, new Vector2(0, 0), new Vector2(5.0f, 5.0f), SpriteEffects.None, 1.0f);
-
+            /*
             spriteBatch.Draw(loadingBars, new Vector2(0, 140),
             new Rectangle(playFrame * BARFRAMEWIDTH, BARFRAMEHEIGHT * 2, BARFRAMEWIDTH, BARFRAMEHEIGHT),
             Color.White, 0, new Vector2(0, 0), new Vector2(5.0f, 5.0f), SpriteEffects.None, 1.0f);
+            */
         }
-        
+
+        public void DrawIcons(SpriteBatch spriteBatch)
+        {
+
+        }        
         public void Reset()
         {
             isAlive = true;
