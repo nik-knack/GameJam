@@ -30,6 +30,7 @@ namespace Tama_Caretaker
         public bool isAlive = true;
         private bool isPopulated = false;
         public bool completed = false;
+        public bool lost = false;
 
         private List<Food> foodList;
         private Random random = new Random();
@@ -137,7 +138,7 @@ namespace Tama_Caretaker
                 timeCounterPlayBar -= timePerPlayFrame;
             }
             */
-           if (playFrame >= 7 || feedFrame >= 7 || playFrame >= 7)
+           if (sleepFrame >= 7 || feedFrame >= 7 || playFrame >= 7)
            {
                 isAlive = false;
            }
@@ -184,6 +185,11 @@ namespace Tama_Caretaker
             {
                 FeedFrame = 1;
                 completed = true;
+            }
+
+            if (feedTimer < 0)
+            {
+                lost = true;
             }
         }
 
@@ -245,7 +251,8 @@ namespace Tama_Caretaker
 
         public void FeedReset()
         {
-            feedTimer = 10;
+            lost = false;
+            feedTimer = 15;
             completed = false;
             isPopulated = false;
             foodList.Clear();

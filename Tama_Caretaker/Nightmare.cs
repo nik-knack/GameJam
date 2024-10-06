@@ -53,7 +53,7 @@ namespace Tama_Caretaker
             position.X += speed * x;
             position.Y += speed * y;
 
-            if (position.Left < 0 || position.Right > 1280 + ((texture.Width/4)*3))
+            if (position.Left < 0 || position.Right > 1280)
             {
                 x *= -1;
             }
@@ -70,24 +70,11 @@ namespace Tama_Caretaker
                 new Rectangle(frame * GHOSTWIDTH, GHOSTHEIGHT * 0, GHOSTWIDTH, GHOSTHEIGHT),
                 Color.White, 0, new Vector2(0, 0), new Vector2(1.0f, 1.0f), SpriteEffects.None, 1.0f);
         }
-        public void UpdateGhostAnimations(GameTime gameTime)
-        {
-            timeCounter += gameTime.ElapsedGameTime.TotalSeconds;
-            if(timeCounter > timePerFrame)
-            {
-                frame += 1;
-
-                if (frame >= GHOSTFRAMES)
-                    frame = 1;
-
-                timeCounter -= timePerFrame;
-            }
-        }
-
         public void NightmareReset()
         {
             position.X = 0;
             position.Y = 0;
+            randCheck = false;
         }
     }
 }

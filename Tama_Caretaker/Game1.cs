@@ -222,6 +222,7 @@ namespace Tama_Caretaker
                     }
                     else
                     {
+                        failFX.Play();
                         gameState = GameState.GameOver;
                         break;
                     }
@@ -231,7 +232,6 @@ namespace Tama_Caretaker
                 case GameState.SleepMinigame:
 
                     nightmare.Update(gameTime);
-                    nightmare.UpdateGhostAnimations(gameTime);
 
                     sleepPlayer.Update(gameTime, kbState);
 
@@ -248,6 +248,7 @@ namespace Tama_Caretaker
                         nightmare.NightmareReset();
                         playerTamagochi.SleepReset();
                         sleepPlayer.Reset();
+                        failFX.Play();
                         gameState = GameState.TamagachiMenu;
                     }
                     
@@ -256,19 +257,20 @@ namespace Tama_Caretaker
                 case GameState.FeedMinigame:
                     playerTamagochi.FeedUpdate(gameTime, mState, prevMState);
 
-                    if (SingleKeyPress(Keys.Q, kbState, prevkbState))
-                    {
                         if(playerTamagochi.completed)
                         {
                             winFX.Play();
+                            playerTamagochi.FeedReset();
+                            gameState = GameState.TamagachiMenu;
                         }
-                        else
+                        else if (playerTamagochi.lost)
                         {
-                            cancelFX.Play();
+                            failFX.Play();
+                            playerTamagochi.FeedReset();
+                            gameState = GameState.TamagachiMenu;
                         }
-                        playerTamagochi.FeedReset();
-                        gameState = GameState.TamagachiMenu;
-                    }
+                        
+
                     break;
 
                 //case GameState.PlayMinigame:
@@ -284,10 +286,12 @@ namespace Tama_Caretaker
                     if (SingleKeyPress(Keys.Space, kbState, prevkbState))
                     {
                         playerTamagochi.Reset();
+                        winFX.Play();
                         gameState = GameState.TamagachiMenu;
                     }
                     if (SingleKeyPress(Keys.Q, kbState, prevkbState))
                     {
+                        cancelFX.Play();
                         gameState = GameState.TitleScreen;
                     }
                     break;
@@ -450,6 +454,9 @@ namespace Tama_Caretaker
                         gameOver.Width, gameOver.Height), Color.White);
                     _spriteBatch.DrawString(monogram, "Press Space to restart!",
                        new Vector2((screenWidth / 2) - 150, (screenHeight / 2) + 250),
+                       Color.Brown);
+                    _spriteBatch.DrawString(monogram, "Press Q to return to title screen",
+                       new Vector2((screenWidth / 2) - 150, (screenHeight / 2) + 300),
                        Color.Brown);
 
                     break;
