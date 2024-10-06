@@ -66,9 +66,7 @@ namespace Tama_Caretaker
 
         public void Draw(SpriteBatch sb)
         {
-            sb.Draw(texture, new Vector2(position.X, position.Y),
-                new Rectangle(GHOSTWIDTH, GHOSTHEIGHT * 0, GHOSTWIDTH, GHOSTHEIGHT),
-                Color.White, 0, new Vector2(0, 0), new Vector2(1.0f, 1.0f), SpriteEffects.None, 1.0f);
+            sb.Draw(texture, position, Color.White);
         }
         public void NightmareReset()
         {
