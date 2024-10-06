@@ -13,7 +13,6 @@ namespace Tama_Caretaker
     {
         private Texture2D texture;
         public Rectangle position;
-        private Vector2 grrr;
 
         public Food(Texture2D tex, Rectangle position)
         {
