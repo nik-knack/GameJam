@@ -47,6 +47,8 @@ namespace Tama_Caretaker
         private Texture2D tamagotchiBackground;
         private Texture2D gameOverBackground;
         private Texture2D titleCard;
+        private Texture2D howToPlayCard;
+        private Texture2D creditsCard;
 
         private Tamagotchi playerTamagochi;
         private SoundEffect cancelFX;
@@ -95,6 +97,8 @@ namespace Tama_Caretaker
             tamagotchiBackground = Content.Load<Texture2D>("tamagotchi_background");
             gameOverBackground = Content.Load<Texture2D>("game_over_background");
             titleCard = Content.Load<Texture2D>("title");
+            howToPlayCard = Content.Load<Texture2D>("how_to_play");
+            creditsCard = Content.Load<Texture2D>("credits");
 
 
             monogram = Content.Load<SpriteFont>("monogram");
@@ -285,7 +289,7 @@ namespace Tama_Caretaker
 
                     _spriteBatch.Draw(titleCard, new Rectangle(
                         (screenWidth - titleCard.Width) / 2,
-                        (screenHeight - titleCard.Height) / 2,
+                        100,
                         titleCard.Width, 
                         titleCard.Height), 
                         Color.White);
@@ -298,6 +302,14 @@ namespace Tama_Caretaker
                 case GameState.Instructions:
                     _spriteBatch.Draw(mainBackground, new Rectangle(0, 0,
                         mainBackground.Width, mainBackground.Height), Color.White);
+
+                    _spriteBatch.Draw(howToPlayCard, 
+                        new Rectangle(
+                            (screenWidth - howToPlayCard.Width)/2,
+                            100,
+                            howToPlayCard.Width, 
+                            howToPlayCard.Height), 
+                        Color.White);
                     _spriteBatch.DrawString(monogram, "How To Play:", new Vector2(screenWidth / 2, screenHeight / 2),
                         Color.White, 0f, new Vector2(0, 0), new Vector2(4.0f, 4.0f), SpriteEffects.None, 0f);
                     break;
@@ -305,6 +317,10 @@ namespace Tama_Caretaker
                 case GameState.Credits:
                     _spriteBatch.Draw(mainBackground, new Rectangle(0, 0,
                         mainBackground.Width, mainBackground.Height), Color.White);
+
+                    _spriteBatch.Draw(creditsCard, new Rectangle((screenWidth - creditsCard.Width)/2, 100,
+                        creditsCard.Width, creditsCard.Height), Color.White);
+
                     _spriteBatch.DrawString(monogram, "Credits",
                         new Vector2((screenWidth / 2) - 150, (screenHeight / 2) - 100),
                         Color.White);
